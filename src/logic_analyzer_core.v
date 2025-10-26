@@ -1,0 +1,187 @@
+`timescale 1ns / 1ps
+
+module logic_analyzer_core #(
+    parameter DATA_WIDTH = 8,
+    parameter ADDR_WIDTH = 11,  // 2^ADDR_WIDTH deep
+    // post-trigger samples to capture after the trigger fires
+    // default to half of the buffer depth
+    parameter integer POST_TRIGGER_SAMPLES = (1<<ADDR_WIDTH)/2
+)(
+    input  wire                     clk,
+    input  wire                     rst_n,
+
+    // 采样数据输入
+    input  wire [DATA_WIDTH-1:0]    sample_data,
+
+    // 控制信号
+    input  wire                     trigger_enable,  // 触发使能
+    input  wire [DATA_WIDTH-1:0]    trigger_value,   // 触发值
+    input  wire [DATA_WIDTH-1:0]    trigger_mask,    // 触发掩码 (1=比较, 0=忽略)
+    input  wire [DATA_WIDTH-1:0]    edge_trigger,    // 每位：1=边沿触发, 0=电平触发
+    input  wire [DATA_WIDTH-1:0]    trigger_type,    // 每位：1=上升沿/高电平, 0=下降沿/低电平
+    // 触发模式：00=OR, 01=AND-accumulate, 10=AND-coincident
+    // 兼容旧接口：未连接 trigger_mode 时使用 trigger_mode_is_or
+    input  wire [1:0]               trigger_mode,
+    input  wire                     trigger_mode_is_or,
+
+    // 状态输出
+    output reg                      capturing,       // 正在采样
+    output reg                      triggered,       // 已触发
+    output reg                      capture_done,    // 采样完成
+    output reg  [ADDR_WIDTH-1:0]    trigger_index,   // 记录触发时刻对应的写地址
+
+    // BRAM写接口
+    output reg                      wr_en,
+    output reg  [ADDR_WIDTH-1:0]    wr_addr,
+    output reg  [DATA_WIDTH-1:0]    wr_data
+);
+
+    // 状态机定义
+    localparam IDLE          = 3'd0;
+    localparam WAIT_TRIGGER  = 3'd1;
+    localparam POST_CAPTURE  = 3'd2;
+    localparam DONE          = 3'd3;
+
+    reg [2:0] state;
+    reg [ADDR_WIDTH-1:0] post_cnt;     // after-trigger counter
+    reg [DATA_WIDTH-1:0] sample_data_d1;  // 用于边沿检测
+    reg [DATA_WIDTH-1:0] edge_triggered_latch;  // 记录哪些边沿已触发（AND模式用）
+
+    // 每位独立的触发检测逻辑
+    wire [DATA_WIDTH-1:0] bit_trigger_detected;
+
+    genvar i;
+    generate
+        for (i = 0; i < DATA_WIDTH; i = i + 1) begin : gen_bit_trigger
+            // 边沿检测
+            wire pos_edge = (sample_data[i] == 1'b1) && (sample_data_d1[i] == 1'b0);
+            wire neg_edge = (sample_data[i] == 1'b0) && (sample_data_d1[i] == 1'b1);
+
+            // 电平检测
+            wire high_level = (sample_data[i] == 1'b1);
+            wire low_level  = (sample_data[i] == 1'b0);
+
+            // 每位独立判断：边沿模式或电平模式
+            // trigger_mask[i]: 1=启用此位, 0=禁用
+            // edge_trigger[i]: 1=边沿触发, 0=电平触发
+            // trigger_type[i]: 边沿模式(0=上升沿,1=下降沿); 电平模式(0=高电平,1=低电平)
+            assign bit_trigger_detected[i] = trigger_mask[i] && (
+                edge_trigger[i] ?
+                    (trigger_type[i] ? neg_edge : pos_edge) :      // 边沿触发：1=下降沿，0=上升沿
+                    (trigger_type[i] ? low_level : high_level)     // 电平触发：1=低电平，0=高电平
+            );
+        end
+    endgenerate
+
+    // 触发模式选择：
+    // OR：任意使能通道满足条件即触发
+    // AND-accumulate：所有使能通道都必须满足；边沿事件允许先后发生（锁存），电平为实时
+    // AND-coincident：所有使能通道在同一拍同时满足（不锁存）
+    wire [DATA_WIDTH-1:0] enabled_channels = trigger_mask;  // 使能的通道
+
+    // AND模式：
+    // - 对边沿触发位：使用锁存，使不同通道的“事件”可先后发生
+    // - 对电平触发位：不锁存，实时要求当前电平满足
+    wire [DATA_WIDTH-1:0] edge_status  = edge_triggered_latch & edge_trigger;      // 仅保留边沿位的锁存状态
+    wire [DATA_WIDTH-1:0] level_status = bit_trigger_detected & ~edge_trigger;      // 电平位用当前检测结果
+    wire [DATA_WIDTH-1:0] and_mode_status = edge_status | level_status;
+    wire all_enabled_triggered_acc = &(and_mode_status | ~enabled_channels);
+    wire any_enabled_triggered     = |bit_trigger_detected;
+    wire all_enabled_triggered_co  = &(bit_trigger_detected | ~enabled_channels);
+
+    // 选择有效的模式（若 trigger_mode 未连接，值为X，退回旧接口）
+    wire use_legacy_mode = ((trigger_mode[0] === 1'bx) && (trigger_mode[1] === 1'bx));
+    wire [1:0] trigger_mode_eff = use_legacy_mode ? {1'b0, trigger_mode_is_or} : trigger_mode;
+
+    wire trigger_detected = (trigger_mode_eff == 2'd0) ? any_enabled_triggered :
+                            (trigger_mode_eff == 2'd1) ? all_enabled_triggered_acc :
+                            /*2'd2*/                 all_enabled_triggered_co;
+
+    // 主状态机
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            state         <= IDLE;
+            capturing     <= 1'b0;
+            triggered     <= 1'b0;
+            capture_done  <= 1'b0;
+            wr_en         <= 1'b0;
+            wr_addr       <= 0;
+            wr_data       <= 0;
+            post_cnt      <= 0;
+            sample_data_d1<= 0;
+            edge_triggered_latch <= 0;
+            trigger_index <= 0;
+        end else begin
+            sample_data_d1 <= sample_data;
+
+            case (state)
+                IDLE: begin
+                    capturing    <= 1'b0;
+                    triggered    <= 1'b0;
+                    capture_done <= 1'b0;
+                    wr_en        <= 1'b0;
+                    wr_addr      <= 0;
+                    post_cnt     <= 0;
+                    edge_triggered_latch <= 0;  // 复位边沿锁存
+
+                    if (trigger_enable) begin
+                        state     <= WAIT_TRIGGER;
+                        capturing <= 1'b1;
+                    end
+                end
+
+                WAIT_TRIGGER: begin
+                    // 持续采样，环形写入（wr_addr按位宽自然回绕）
+                    wr_en   <= 1'b1;
+                    wr_data <= sample_data;
+                    wr_addr <= wr_addr + 1'b1;
+
+                    // AND-accumulate：仅对“边沿触发”的位进行事件锁存
+                    if (trigger_mode_eff == 2'd1) begin
+                        edge_triggered_latch <= edge_triggered_latch | (bit_trigger_detected & edge_trigger);
+                    end
+
+                    if (trigger_detected) begin
+                        state     <= POST_CAPTURE;
+                        triggered <= 1'b1;
+                        trigger_index <= wr_addr;  // 记录触发发生时的写入地址
+                        post_cnt <= {ADDR_WIDTH{1'b0}};
+                    end
+
+                    if (!trigger_enable) begin
+                        state <= IDLE;
+                    end
+                end
+
+                POST_CAPTURE: begin
+                    // 触发后继续采样固定数量（POST_TRIGGER_SAMPLES）
+                    wr_en   <= 1'b1;
+                    wr_data <= sample_data;
+                    wr_addr <= wr_addr + 1'b1;
+                    post_cnt <= post_cnt + 1'b1;
+
+                    if (post_cnt == POST_TRIGGER_SAMPLES-1) begin
+                        state <= DONE;
+                    end
+
+                    if (!trigger_enable) begin
+                        state <= IDLE;
+                    end
+                end
+
+                DONE: begin
+                    wr_en        <= 1'b0;
+                    capturing    <= 1'b0;
+                    capture_done <= 1'b1;
+
+                    if (!trigger_enable) begin
+                        state <= IDLE;
+                    end
+                end
+
+                default: state <= IDLE;
+            endcase
+        end
+    end
+
+endmodule
