@@ -1,4 +1,24 @@
 `timescale 1ns / 1ps
+/*
+ * 模块名称: uart_bram_streamer
+ * 功能概述: 通过 UART 以“帧”的形式发送 BRAM 中的完整缓冲数据，用于导出采样结果。
+ *           帧格式: 0x55 0xAA | LEN_L LEN_H | TRIG_L TRIG_H | DATA[0..LEN-1]
+ *           其中 LEN = 2^ADDR_WIDTH，TRIG_* 为触发参考地址（供上位机重排显示）。
+ *
+ * 参数说明:
+ * - DATA_WIDTH: BRAM 数据位宽（字节发送）。
+ * - ADDR_WIDTH: BRAM 地址宽度（总字节数=2^ADDR_WIDTH）。
+ * - CLK_FREQ  : 输入时钟频率（Hz）。
+ * - BAUD_RATE : 串口波特率。
+ *
+ * 端口说明:
+ * - clk, rst_n       : 时钟与低有效复位。
+ * - start            : 上升沿开始发送一帧。
+ * - busy, done       : 发送中/单帧完成指示。
+ * - trigger_index[A-1:0]: 触发参考地址（随帧发送）。
+ * - rd_addr, rd_data : BRAM 读口（同步读，读数据延迟一拍有效）。
+ * - uart_tx          : 串口发送引脚。
+ */
 
 // 将 BRAM 中的数据以帧的形式通过 UART 发送到主机。
 // 帧格式：0x55 0xAA | LEN_L LEN_H | TRIG_L TRIG_H | DATA[0..LEN-1]

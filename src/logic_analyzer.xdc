@@ -1,4 +1,6 @@
 # Logic Analyzer top-level constraints (initial bring-up)
+# 说明: sw_test_enable 目前默认上拉为 1，因此上电后默认选择片上测试信号作为采样源。
+#      如需默认采样外部探针，可将该口改为 PULLDOWN，或在顶层将其常置 0。
 # Board: custom (pins taken from your pin tables)
 # Clock: PL_GCLK @ 50MHz on N18
 

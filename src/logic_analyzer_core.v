@@ -1,4 +1,31 @@
 `timescale 1ns / 1ps
+/*
+ * 模块名称: logic_analyzer_core
+ * 功能概述: 逻辑分析仪采样核心。以环形方式将 sample_data 写入 BRAM，支持逐位
+ *           电平/边沿触发与三种触发模式（OR/AND-累积/AND-同拍）。触发后继续采集
+ *           固定数量的后触发样本，输出关键状态与触发地址。
+ *
+ * 参数说明:
+ * - DATA_WIDTH           : 采样数据位宽。
+ * - ADDR_WIDTH           : 地址位宽（深度=2^ADDR_WIDTH）。
+ * - POST_TRIGGER_SAMPLES : 触发后继续采样的点数（默认=深度/2）。
+ *
+ * 端口说明:
+ * - clk, rst_n          : 时钟与低有效复位。
+ * - sample_data[W-1:0]  : 待采样数据（已同步到 clk 域）。
+ * - trigger_enable      : 运行/停止（1=布防、0=撤防）。
+ * - trigger_value[W-1:0]: 保留接口（值比较，当前未使用）。
+ * - trigger_mask[W-1:0] : 逐位触发使能。
+ * - edge_trigger[W-1:0] : 逐位 1=边沿、0=电平。
+ * - trigger_type[W-1:0] : 边沿(0上升/1下降) 或 电平(0高/1低)。
+ * - trigger_mode[1:0]   : 00=OR；01=AND-ACC（边沿事件锁存+电平实时）；10=AND-COIN（同拍）。
+ * - trigger_mode_is_or  : 兼容旧接口（未连 trigger_mode 时回退）。
+ * - capturing           : 采样中标志。
+ * - triggered           : 已触发标志（触发瞬间置位）。
+ * - capture_done        : 采样完成标志（进入 DONE）。
+ * - trigger_index[A-1:0]: 触发发生时的写地址（用于还原触发点）。
+ * - wr_en, wr_addr, wr_data: BRAM 写口。
+ */
 
 module logic_analyzer_core #(
     parameter DATA_WIDTH = 8,

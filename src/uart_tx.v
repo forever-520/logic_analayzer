@@ -1,4 +1,20 @@
 `timescale 1ns / 1ps
+/*
+ * 模块名称: uart_tx
+ * 功能概述: 8N1 UART 发送器。空闲为高，收到 tx_valid 后按 1 个起始位(0) + 8 个
+ *           数据位(LSB 先) + 1 个停止位(1) 发送，波特率由分频生成。
+ *
+ * 参数说明:
+ * - CLK_FREQ : 时钟频率（Hz）。
+ * - BAUD_RATE: 目标波特率。
+ *
+ * 端口说明:
+ * - clk, rst_n: 时钟与低有效复位。
+ * - tx_data   : 待发送字节。
+ * - tx_valid  : 发送请求（在 tx_ready=1 时有效）。
+ * - tx_ready  : 发送器空闲指示（1=可接收下一个字节）。
+ * - uart_tx   : 串口 TX 引脚。
+ */
 
 module uart_tx #(
     parameter integer CLK_FREQ  = 50_000_000,
@@ -94,4 +110,3 @@ module uart_tx #(
     end
 
 endmodule
-

@@ -1,4 +1,17 @@
 `timescale 1ns / 1ps
+/*
+ * 模块名称: sample_buffer
+ * 功能概述: 同步双端口 BRAM 缓冲。写端用于采样写入，读端用于调试/导出读取；
+ *           深度为 2^ADDR_WIDTH，读口同步并在时钟上升沿输出寄存。
+ *
+ * 参数说明:
+ * - DATA_WIDTH: 每个样本的位宽。
+ * - ADDR_WIDTH: BRAM 地址宽度（深度=2^ADDR_WIDTH）。
+ *
+ * 端口说明:
+ * - wr_clk, wr_en, wr_addr, wr_data: 写端口（采样侧）。
+ * - rd_clk, rd_addr, rd_data       : 读端口（观测/导出侧）。
+ */
 
 module sample_buffer #(
     parameter DATA_WIDTH = 8,

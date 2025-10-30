@@ -1,4 +1,27 @@
 `timescale 1ns / 1ps
+/*
+ * 模块名称: fpga_top
+ * 功能概述: 顶层集成。完成外部按键消抖、触发条件的人机配置、采样核心与 BRAM 的
+ *           连接，提供可选片上测试信号发生器，并在非仿真下连接 ILA 便于调试。
+ *           采样数据源可在外部探针与内部测试信号之间切换。
+ *
+ * 参数说明:
+ * - DEBOUNCE_CNT_MAX: 按键消抖计数阈值（默认约 20ms@50MHz；仿真中可缩短）。
+ *
+ * 端口说明:
+ * - sys_clk, sys_rst_n: 系统时钟与低有效复位。
+ * - probe_signals[7:0]: 外部 8 路被测信号（异步，内部同步）。
+ * - btn_trigger_en     : 运行/停止切换按键（低有效，消抖后单拍）。
+ * - btn_channel_select : 触发配置通道选择按键。
+ * - btn_type_select    : 当前通道触发类型循环按键（关/上升/下降/高/低）。
+ * - btn_trigger_mode   : 触发模式轮换（OR/AND-ACC/AND-COIN）。
+ * - led_capturing      : 采样中指示。
+ * - led_triggered      : 已触发指示。
+ * - led_done           : 采样完成指示。
+ * - la_trigger_index[10:0]: 触发地址导出。
+ * - sw_test_enable     : 1=采样内部测试信号，0=采样外部 probe_signals。
+ * - sw_test_pattern[1:0]: 测试信号模式选择。
+ */
 
 module fpga_top #(
     // Debounce counter max. Default ~20ms @50MHz

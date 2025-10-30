@@ -1,4 +1,19 @@
 `timescale 1ns / 1ps
+/*
+ * 模块名称: input_synchronizer
+ * 功能概述: 多比特异步输入同步器。提供 2/3 级可配置同步级数，将外部或不同时钟域的
+ *           输入同步到本地 clk 时钟域，降低亚稳态风险。
+ *
+ * 参数说明:
+ * - DATA_WIDTH : 数据位宽。
+ * - SYNC_STAGES: 同步级数（2 或 3）。
+ *
+ * 端口说明:
+ * - clk     : 目标时钟域。
+ * - rst_n   : 低电平异步复位。
+ * - data_in : 待同步的异步输入。
+ * - data_out: 同步到 clk 域后的稳定输出。
+ */
 
 module input_synchronizer #(
     parameter DATA_WIDTH = 8,
