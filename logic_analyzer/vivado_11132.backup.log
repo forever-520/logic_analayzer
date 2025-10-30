@@ -1,0 +1,84 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Sat Oct 25 23:23:22 2025
+# Process ID: 11132
+# Current directory: E:/fpga_class/vivado/logic_analyzer/logic_analyzer
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent35816 E:\fpga_class\vivado\logic_analyzer\logic_analyzer\logic_analyzer.xpr
+# Log file: E:/fpga_class/vivado/logic_analyzer/logic_analyzer/vivado.log
+# Journal file: E:/fpga_class/vivado/logic_analyzer/logic_analyzer\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.xpr
+WARNING: [filemgmt 56-3] Default IP Output Path : Could not find the directory 'E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.gen/sources_1'.
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'F:/Xilinx/Vivado/2020.2/data/ip'.
+open_project: Time (s): cpu = 00:00:18 ; elapsed = 00:00:15 . Memory (MB): peak = 1089.098 ; gain = 0.000
+update_compile_order -fileset sources_1
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+create_ip -name ila -vendor xilinx.com -library ip -version 6.2 -module_name ila
+set_property -dict [list CONFIG.C_PROBE17_WIDTH {2} CONFIG.C_PROBE15_WIDTH {8} CONFIG.C_PROBE10_WIDTH {3} CONFIG.C_PROBE9_WIDTH {2} CONFIG.C_PROBE7_WIDTH {11} CONFIG.C_PROBE3_WIDTH {8} CONFIG.C_PROBE2_WIDTH {11} CONFIG.C_PROBE0_WIDTH {8} CONFIG.C_DATA_DEPTH {4096} CONFIG.C_NUM_OF_PROBES {18} CONFIG.Component_Name {ila}] [get_ips ila]
+WARNING: [Vivado 12-3523] Attempt to change 'Component_Name' from 'ila' to 'ila' is not allowed and is ignored.
+generate_target {instantiation_template} [get_files e:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.srcs/sources_1/ip/ila/ila.xci]
+INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'ila'...
+update_compile_order -fileset sources_1
+generate_target all [get_files  e:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.srcs/sources_1/ip/ila/ila.xci]
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'ila'...
+WARNING: [IP_Flow 19-4994] Overwriting existing constraint file 'e:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.gen/sources_1/ip/ila/ila_ooc.xdc'
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'ila'...
+INFO: [IP_Flow 19-1686] Generating 'Implementation' target for IP 'ila'...
+INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'ila'...
+catch { config_ip_cache -export [get_ips -all ila] }
+export_ip_user_files -of_objects [get_files e:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.srcs/sources_1/ip/ila/ila.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] e:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.srcs/sources_1/ip/ila/ila.xci]
+launch_runs ila_synth_1 -jobs 8
+[Sat Oct 25 23:30:21 2025] Launched ila_synth_1...
+Run output will be captured here: E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.runs/ila_synth_1/runme.log
+export_simulation -of_objects [get_files e:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.srcs/sources_1/ip/ila/ila.xci] -directory E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.ip_user_files/sim_scripts -ip_user_files_dir E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.ip_user_files -ipstatic_source_dir E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.ip_user_files/ipstatic -lib_map_path [list {modelsim=E:/ModelSim/modelsim_ase/win32aloem} {questa=E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.cache/compile_simlib/questa} {riviera=E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.cache/compile_simlib/riviera} {activehdl=E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+launch_runs synth_1 -jobs 8
+[Sat Oct 25 23:37:53 2025] Launched synth_1...
+Run output will be captured here: E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.runs/synth_1/runme.log
+launch_runs impl_1 -jobs 8
+[Sun Oct 26 00:37:14 2025] Launched impl_1...
+Run output will be captured here: E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.runs/impl_1/runme.log
+open_run impl_1
+INFO: [Device 21-403] Loading part xc7z010clg400-2
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.049 . Memory (MB): peak = 2452.676 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 233 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2020.2
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+Reading XDEF placement.
+Reading placer database...
+Reading XDEF routing.
+Read XDEF File: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.303 . Memory (MB): peak = 3157.414 ; gain = 0.000
+Restored from archive | CPU: 0.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.304 . Memory (MB): peak = 3157.414 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 3157.414 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 122 instances were transformed.
+  CFGLUT5 => CFGLUT5 (SRL16E, SRLC32E): 116 instances
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 6 instances
+
+open_run: Time (s): cpu = 00:00:31 ; elapsed = 00:00:16 . Memory (MB): peak = 3181.254 ; gain = 1863.223
+add_files -fileset constrs_1 -norecurse E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.xdc
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+[Sun Oct 26 00:52:48 2025] Launched synth_1...
+Run output will be captured here: E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.runs/synth_1/runme.log
+launch_runs impl_1 -jobs 8
+[Sun Oct 26 00:54:07 2025] Launched impl_1...
+Run output will be captured here: E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.runs/impl_1/runme.log
+open_hw_manager
+close_hw_manager
+reset_run impl_1
+exit
+INFO: [Common 17-206] Exiting Vivado at Sun Oct 26 00:54:52 2025...

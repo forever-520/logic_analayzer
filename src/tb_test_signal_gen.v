@@ -1,5 +1,8 @@
 `timescale 1ns / 1ps
-
+/*
+ * 测试平台: tb_test_signal_gen
+ * 功能概述: 逐一验证 4 种测试模式（00递增、01方波、10LFSR、11AA/55），并打印部分输出。
+ */
 module tb_test_signal_gen;
 
     reg         clk;

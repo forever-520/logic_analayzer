@@ -1,5 +1,14 @@
 `timescale 1ns / 1ps
-
+/*
+ * 测试平台: tb_debounce
+ * 功能概述: 驱动被测模块 debounce，构造“按下/释放抖动”的时序，
+ *           验证仅在稳定按压/释放后输出单拍脉冲 btn_flag。
+ * 主要步骤:
+ * - 缩短 CNT_MAX（SIM_CNT_MAX）以加快仿真。
+ * - 依次注入按下/释放抖动，再保持稳定电平。
+ * 观察点:
+ * - btn_flag: 检查是否只出现一个周期的脉冲。
+ */
 module tb_debounce;
 
     reg  clk;

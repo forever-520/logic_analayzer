@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Webtalk v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Wed Oct 22 15:10:31 2025
+# Process ID: 17876
+# Current directory: E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/xsim
+# Command line: wbtcv.exe -mode batch -source E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/xsim/xsim.dir/tb_input_synchronizer_behav/webtalk/xsim_webtalk.tcl -notrace
+# Log file: E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/xsim/webtalk.log
+# Journal file: E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/xsim\webtalk.jou
+#-----------------------------------------------------------
+source E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/xsim/xsim.dir/tb_input_synchronizer_behav/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-206] Exiting Webtalk at Wed Oct 22 15:10:32 2025...

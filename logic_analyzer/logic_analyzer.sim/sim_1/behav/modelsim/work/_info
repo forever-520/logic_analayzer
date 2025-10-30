@@ -1,0 +1,73 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dE:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/modelsim
+vtb_debounce
+!s110 1761118311
+!i10b 1
+!s100 lLWIZ^2JX0?7dko6K^2]31
+IZMPd]TM2J_[U74>dPogdf1
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1761066989
+8E:/fpga_class/vivado/logic_analyzer/logic_analyzer/tb_debounce.v
+FE:/fpga_class/vivado/logic_analyzer/logic_analyzer/tb_debounce.v
+L0 3
+Z2 OV;L;10.5b;63
+r1
+!s85 0
+31
+!s108 1761118311.000000
+!s107 E:/fpga_class/vivado/logic_analyzer/logic_analyzer/tb_debounce.v|
+!s90 -reportprogress|300|-work|work|E:/fpga_class/vivado/logic_analyzer/logic_analyzer/tb_debounce.v|
+!i113 1
+Z3 o-work work
+Z4 tCvgOpt 0
+vtb_fpga_top_config
+!s110 1761227769
+!i10b 1
+!s100 iE7^RY2l2<nDe8Ci`WD;m0
+IADNGgWB^Q<lAc>@L_zVYR2
+R1
+R0
+w1761227511
+8E:/fpga_class/vivado/logic_analyzer/logic_analyzer/tb_fpga_top_config.v
+FE:/fpga_class/vivado/logic_analyzer/logic_analyzer/tb_fpga_top_config.v
+L0 4
+R2
+r1
+!s85 0
+31
+!s108 1761227769.000000
+!s107 E:/fpga_class/vivado/logic_analyzer/logic_analyzer/tb_fpga_top_config.v|
+!s90 -reportprogress|300|+define+SIMULATION|E:/fpga_class/vivado/logic_analyzer/logic_analyzer/tb_fpga_top_config.v|
+!i113 1
+!s92 +define+SIMULATION
+R4
+vtb_input_synchronizer
+!s110 1761117756
+!i10b 1
+!s100 In_[[XN1IMI4PXOCT`6DE0
+I_XW52j;H1^;>9L;j>lM9i2
+R1
+R0
+w1761066923
+8E:/fpga_class/vivado/logic_analyzer/logic_analyzer/tb_input_synchronizer.v
+FE:/fpga_class/vivado/logic_analyzer/logic_analyzer/tb_input_synchronizer.v
+L0 3
+R2
+r1
+!s85 0
+31
+!s108 1761117756.000000
+!s107 E:/fpga_class/vivado/logic_analyzer/logic_analyzer/tb_input_synchronizer.v|
+!s90 -reportprogress|300|-work|work|E:/fpga_class/vivado/logic_analyzer/logic_analyzer/tb_input_synchronizer.v|
+!i113 1
+R3
+R4

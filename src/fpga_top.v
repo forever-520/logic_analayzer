@@ -41,13 +41,6 @@ module fpga_top #(
     input  wire        btn_type_select,
     input  wire        btn_trigger_mode,
 
-    // Status LEDs
-    output wire        led_capturing,
-    output wire        led_triggered,
-    output wire        led_done,
-    // Export trigger address to host/UI
-    output wire [10:0] la_trigger_index,
-
     // Optional test signal generator control
     input  wire        sw_test_enable,
     input  wire [1:0]  sw_test_pattern
@@ -86,6 +79,11 @@ module fpga_top #(
             assign trigger_type[i]      = trigger_config[i][1];
         end
     endgenerate
+
+    // 当前选中通道的触发配置（仅用于 ILA 观测）：
+    // 3'b[2:0] = {level_or_edge(0=edge,1=level), polarity(0:rise/high,1:fall/low), enable}
+    wire [2:0] curr_trig_cfg = trigger_config[config_channel_idx];
+    wire [7:0] curr_trig_cfg_ext = {5'b0, curr_trig_cfg};
 
     wire        wr_en;
     wire [10:0] wr_addr;
@@ -155,11 +153,6 @@ module fpga_top #(
         end
     end
 
-    // LEDs
-    assign led_capturing = capturing;
-    assign led_triggered = triggered;
-    assign led_done      = capture_done;
-
     // Input synchronizer
     input_synchronizer #(
         .DATA_WIDTH(8)
@@ -223,9 +216,6 @@ module fpga_top #(
         .wr_data(wr_data)
     );
 
-    // Export trigger address
-    assign la_trigger_index = trigger_index;
-
     // BRAM sample buffer
     sample_buffer #(
         .DATA_WIDTH(8),
@@ -272,7 +262,9 @@ module fpga_top #(
         .probe12(btn_channel_pulse),    // [0:0]
         .probe13(btn_type_pulse),       // [0:0]
         .probe14(btn_mode_pulse),       // [0:0]
-        .probe15(test_signals),         // [7:0]
+        // 将 probe15 用于显示“当前通道的触发配置”
+        // bit2: 0=边沿/1=电平；bit1: 极性；bit0: 使能
+        .probe15(curr_trig_cfg_ext),    // [7:0] 显示为 {5'b0, 3'bcfg}
         .probe16(sw_test_enable),       // [0:0]
         .probe17(sw_test_pattern)       // [1:0]
     );

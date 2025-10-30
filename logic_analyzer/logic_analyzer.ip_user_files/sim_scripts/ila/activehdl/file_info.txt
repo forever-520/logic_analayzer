@@ -1,0 +1,5 @@
+xpm_cdc.sv,systemverilog,xpm,F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv,incdir="../../../../logic_analyzer.gen/sources_1/ip/ila/hdl/verilog"
+xpm_memory.sv,systemverilog,xpm,F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv,incdir="../../../../logic_analyzer.gen/sources_1/ip/ila/hdl/verilog"
+xpm_VCOMP.vhd,vhdl,xpm,F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_VCOMP.vhd,incdir="../../../../logic_analyzer.gen/sources_1/ip/ila/hdl/verilog"
+ila.v,verilog,xil_defaultlib,../../../../logic_analyzer.gen/sources_1/ip/ila/sim/ila.v,incdir="../../../../logic_analyzer.gen/sources_1/ip/ila/hdl/verilog"
+glbl.v,Verilog,xil_defaultlib,glbl.v

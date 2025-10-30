@@ -1,0 +1,2 @@
+ila.v,verilog,xil_defaultlib,../../../../logic_analyzer.gen/sources_1/ip/ila/sim/ila.v,incdir="../../../../logic_analyzer.gen/sources_1/ip/ila/hdl/verilog"
+glbl.v,Verilog,xil_defaultlib,glbl.v

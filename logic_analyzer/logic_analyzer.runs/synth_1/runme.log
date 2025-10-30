@@ -1,0 +1,290 @@
+
+*** Running vivado
+    with args -log fpga_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source fpga_top.tcl
+
+
+
+****** Vivado v2020.2 (64-bit)
+  **** SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+  **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source fpga_top.tcl -notrace
+Command: synth_design -top fpga_top -part xc7z010clg400-2
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z010'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z010'
+INFO: [Device 21-403] Loading part xc7z010clg400-2
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 24136
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1129.801 ; gain = 22.730
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'fpga_top' [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:26]
+	Parameter DEBOUNCE_CNT_MAX bound to: 999999 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'input_synchronizer' [E:/fpga_class/vivado/logic_analyzer/src/input_synchronizer.v:18]
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter SYNC_STAGES bound to: 2 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'input_synchronizer' (1#1) [E:/fpga_class/vivado/logic_analyzer/src/input_synchronizer.v:18]
+INFO: [Synth 8-6157] synthesizing module 'debounce' [E:/fpga_class/vivado/logic_analyzer/src/debounce.v:16]
+	Parameter CNT_MAX bound to: 999999 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'debounce' (2#1) [E:/fpga_class/vivado/logic_analyzer/src/debounce.v:16]
+INFO: [Synth 8-6157] synthesizing module 'logic_analyzer_core' [E:/fpga_class/vivado/logic_analyzer/src/logic_analyzer_core.v:30]
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter ADDR_WIDTH bound to: 11 - type: integer 
+	Parameter POST_TRIGGER_SAMPLES bound to: 1024 - type: integer 
+	Parameter IDLE bound to: 3'b000 
+	Parameter WAIT_TRIGGER bound to: 3'b001 
+	Parameter POST_CAPTURE bound to: 3'b010 
+	Parameter DONE bound to: 3'b011 
+INFO: [Synth 8-6155] done synthesizing module 'logic_analyzer_core' (3#1) [E:/fpga_class/vivado/logic_analyzer/src/logic_analyzer_core.v:30]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:223]
+INFO: [Synth 8-6157] synthesizing module 'sample_buffer' [E:/fpga_class/vivado/logic_analyzer/src/sample_buffer.v:16]
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter ADDR_WIDTH bound to: 11 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'sample_buffer' (4#1) [E:/fpga_class/vivado/logic_analyzer/src/sample_buffer.v:16]
+INFO: [Synth 8-6157] synthesizing module 'test_signal_gen' [E:/fpga_class/vivado/logic_analyzer/src/test_signal_gen.v:16]
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'test_signal_gen' (5#1) [E:/fpga_class/vivado/logic_analyzer/src/test_signal_gen.v:16]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:247]
+INFO: [Synth 8-6157] synthesizing module 'ila' [E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.runs/synth_1/.Xil/Vivado-29904-forever/realtime/ila_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'ila' (6#1) [E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.runs/synth_1/.Xil/Vivado-29904-forever/realtime/ila_stub.v:6]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_ila_la'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:247]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_la_core'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:199]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_sample_buffer'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:223]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_debounce_trigger'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:167]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_debounce_channel'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:174]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_debounce_type'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:181]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_debounce_mode'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:188]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_test_gen'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:236]
+INFO: [Synth 8-6155] done synthesizing module 'fpga_top' (7#1) [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:26]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1189.777 ; gain = 82.707
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1189.777 ; gain = 82.707
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1189.777 ; gain = 82.707
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1189.777 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [e:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.gen/sources_1/ip/ila/ila/ila_in_context.xdc] for cell 'u_ila_la'
+Finished Parsing XDC File [e:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.gen/sources_1/ip/ila/ila/ila_in_context.xdc] for cell 'u_ila_la'
+Parsing XDC File [E:/fpga_class/vivado/logic_analyzer/src/logic_analyzer.xdc]
+Finished Parsing XDC File [E:/fpga_class/vivado/logic_analyzer/src/logic_analyzer.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [E:/fpga_class/vivado/logic_analyzer/src/logic_analyzer.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/fpga_top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/fpga_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1309.426 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1309.426 ; gain = 0.000
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1309.426 ; gain = 202.355
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z010clg400-2
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1309.426 ; gain = 202.355
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property KEEP_HIERARCHY = SOFT for u_ila_la. (constraint file  auto generated constraint).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1309.426 ; gain = 202.355
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'logic_analyzer_core'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    IDLE |                              000 |                              000
+            WAIT_TRIGGER |                              001 |                              001
+            POST_CAPTURE |                              010 |                              010
+                    DONE |                              011 |                              011
+                  iSTATE |                              100 |                              111
+*
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'logic_analyzer_core'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1309.426 ; gain = 202.355
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   11 Bit       Adders := 2     
+	   2 Input    3 Bit       Adders := 1     
+	   2 Input    2 Bit       Adders := 1     
++---XORs : 
+	   4 Input      1 Bit         XORs := 1     
++---Registers : 
+	               11 Bit    Registers := 3     
+	                8 Bit    Registers := 7     
+	                3 Bit    Registers := 9     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 17    
++---RAMs : 
+	              16K Bit	(2048 X 8 bit)          RAMs := 1     
++---Muxes : 
+	   5 Input   11 Bit        Muxes := 2     
+	   5 Input    8 Bit        Muxes := 2     
+	   2 Input    8 Bit        Muxes := 3     
+	   5 Input    3 Bit        Muxes := 1     
+	   2 Input    3 Bit        Muxes := 4     
+	   6 Input    3 Bit        Muxes := 6     
+	   2 Input    2 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 32    
+	   3 Input    1 Bit        Muxes := 9     
+	   5 Input    1 Bit        Muxes := 12    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 80 (col length:40)
+BRAMs: 120 (col length: RAMB18 40 RAMB36 20)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 1309.426 ; gain = 202.355
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1309.426 ; gain = 202.355
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1309.426 ; gain = 202.355
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 1309.992 ; gain = 202.922
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1314.773 ; gain = 207.703
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1314.773 ; gain = 207.703
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1314.773 ; gain = 207.703
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1314.773 ; gain = 207.703
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1314.773 ; gain = 207.703
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1314.773 ; gain = 207.703
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+--------------+----------+
+|      |BlackBox name |Instances |
++------+--------------+----------+
+|1     |ila           |         1|
++------+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |ila    |     1|
+|2     |BUFG   |     1|
+|3     |CARRY4 |    23|
+|4     |LUT1   |    20|
+|5     |LUT2   |    96|
+|6     |LUT3   |    20|
+|7     |LUT4   |    45|
+|8     |LUT5   |    43|
+|9     |LUT6   |    78|
+|10    |MUXF7  |     3|
+|11    |FDCE   |   211|
+|12    |FDPE   |     8|
+|13    |IBUF   |    17|
++------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1314.773 ; gain = 207.703
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:11 ; elapsed = 00:00:16 . Memory (MB): peak = 1314.773 ; gain = 88.055
+Synthesis Optimization Complete : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 1314.773 ; gain = 207.703
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1314.773 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 26 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1330.234 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Common 17-83] Releasing license: Synthesis
+39 Infos, 2 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 1330.234 ; gain = 223.164
+INFO: [Common 17-600] The following parameters have non-default value.
+tcl.collectionResultDisplayLimit
+INFO: [Common 17-1381] The checkpoint 'E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.runs/synth_1/fpga_top.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file fpga_top_utilization_synth.rpt -pb fpga_top_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Fri Oct 31 00:14:11 2025...

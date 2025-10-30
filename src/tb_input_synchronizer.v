@@ -1,5 +1,10 @@
 `timescale 1ns / 1ps
-
+/*
+ * 测试平台: tb_input_synchronizer
+ * 功能概述: 验证多比特异步输入同步器在 2 级同步下的延迟与稳定性。
+ * 刺激模式: 先给出若干稳定值，再注入快速变化以模拟亚稳态风险。
+ * 观察点  : data_out 应在两个 clk 周期后稳定地跟随 data_in 变化。
+ */
 module tb_input_synchronizer;
 
     reg         clk;

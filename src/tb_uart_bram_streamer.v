@@ -1,5 +1,11 @@
 `timescale 1ns / 1ps
-
+/*
+ * 测试平台: tb_uart_bram_streamer
+ * 功能概述: 将 BRAM 中的整帧数据通过 UART 打包发送（含长度与触发地址），
+ *           测试端实现了简单 UART 接收器并以十六进制打印。
+ * 能否展示“存储后的数据”: 可以。该仿真先向 RAM 预写 0..DEPTH-1，随后经 UART 打印出来，
+ *                         可视为“展示缓冲中已存储的数据”的示例路径。
+ */
 module tb_uart_bram_streamer;
     localparam CLK_FREQ  = 50_000_000;
     localparam BAUD_RATE = 115200;
@@ -97,4 +103,3 @@ module tb_uart_bram_streamer;
     end
 
 endmodule
-

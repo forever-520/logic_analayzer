@@ -1,5 +1,8 @@
 `timescale 1ns / 1ps
-
+/*
+ * 测试平台: tb_uart_tx
+ * 功能概述: 验证 UART 发送器 8N1 时序。串行发送 A5 5A 00 FF，并用简单接收任务在比特中心采样回读。
+ */
 module tb_uart_tx;
     localparam CLK_FREQ  = 50_000_000;
     localparam BAUD_RATE = 115200;
@@ -68,4 +71,3 @@ module tb_uart_tx;
         #100000; $finish;
     end
 endmodule
-

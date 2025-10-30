@@ -1,0 +1,313 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dE:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/modelsim
+vdebounce
+!s10a 1761316699
+!s110 1761318255
+!i10b 1
+!s100 `mgaIlNH@f;3ReZQ3^BQB3
+IImD_3G3g<4Qd?I6^_o8?k0
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1761316699
+8../../../../debounce.v
+F../../../../debounce.v
+L0 3
+Z2 OV;L;10.5b;63
+r1
+!s85 0
+31
+!s108 1761318255.000000
+Z3 !s107 ../../../../tb_fpga_top_config.v|../../../../test_signal_gen.v|../../../../sample_buffer.v|../../../../logic_analyzer_core.v|../../../../input_synchronizer.v|../../../../fpga_top.v|../../../../debounce.v|
+Z4 !s90 -incr|-work|xil_defaultlib|../../../../debounce.v|../../../../fpga_top.v|../../../../input_synchronizer.v|../../../../logic_analyzer_core.v|../../../../sample_buffer.v|../../../../test_signal_gen.v|../../../../tb_fpga_top_config.v|
+!i113 1
+Z5 o-work xil_defaultlib
+Z6 tCvgOpt 0
+vfpga_top
+!s10a 1761324433
+Z7 !s110 1761324508
+!i10b 1
+!s100 oF4U2ogZn_9V;JlX4i47e1
+I`JZ;Ol@5_<d`TN[JH94EL0
+R1
+R0
+w1761324433
+8../../../../fpga_top.v
+F../../../../fpga_top.v
+L0 3
+R2
+r1
+!s85 0
+31
+Z8 !s108 1761324508.000000
+R3
+R4
+!i113 1
+R5
+R6
+vglbl
+!s110 1761326408
+!i10b 1
+!s100 aGX4R92RO3^bD43HL2j:J2
+IB[@nz8b6fg9TA>4h[Y@ZG0
+R1
+R0
+w1605673889
+8glbl.v
+Fglbl.v
+L0 6
+R2
+r1
+!s85 0
+31
+!s108 1761326408.000000
+!s107 glbl.v|
+!s90 -work|xil_defaultlib|glbl.v|
+!i113 1
+R5
+R6
+vinput_synchronizer
+!s10a 1761117636
+!s110 1761117851
+!i10b 1
+!s100 j?ZZan?7bAQ1eVK?_lVj[3
+IP3YfC8H:ZnU8Xb^j@>QXA2
+R1
+R0
+w1761117636
+8../../../../input_synchronizer.v
+F../../../../input_synchronizer.v
+L0 3
+R2
+r1
+!s85 0
+31
+!s108 1761117851.000000
+Z9 !s107 ../../../../tb_input_synchronizer.v|../../../../input_synchronizer.v|
+Z10 !s90 -incr|-work|xil_defaultlib|../../../../input_synchronizer.v|../../../../tb_input_synchronizer.v|
+!i113 1
+R5
+R6
+vlogic_analyzer_core
+!s10a 1761322530
+R7
+!i10b 1
+!s100 ^GZ?7F6UADk9YKT1LYg[<0
+Ie2V0`2N;z5EECG`<SCSY_1
+R1
+R0
+w1761322530
+8../../../../logic_analyzer_core.v
+F../../../../logic_analyzer_core.v
+L0 3
+R2
+r1
+!s85 0
+31
+R8
+R3
+R4
+!i113 1
+R5
+R6
+vsample_buffer
+!s10a 1761067024
+Z11 !s110 1761147717
+!i10b 1
+!s100 @:fbdG8VInKA4CZB^?Iac1
+IADTP7h@Z:P>e<[FY7NFg82
+R1
+R0
+w1761067024
+8../../../../sample_buffer.v
+F../../../../sample_buffer.v
+L0 3
+R2
+r1
+!s85 0
+31
+Z12 !s108 1761147717.000000
+Z13 !s107 ../../../../tb_sample_buffer.v|../../../../sample_buffer.v|
+Z14 !s90 -incr|-work|xil_defaultlib|../../../../sample_buffer.v|../../../../tb_sample_buffer.v|
+!i113 1
+R5
+R6
+vtb_debounce
+!s110 1761314822
+!i10b 1
+!s100 ML:Za3koC^AnYd4HGdE6S2
+I1F[oHaj2h5CLWjoazU5ca1
+R1
+R0
+w1761314756
+8../../../../tb_debounce.v
+F../../../../tb_debounce.v
+L0 3
+R2
+r1
+!s85 0
+31
+!s108 1761314822.000000
+!s107 ../../../../tb_debounce.v|../../../../debounce.v|
+!s90 -incr|-work|xil_defaultlib|../../../../debounce.v|../../../../tb_debounce.v|
+!i113 1
+R5
+R6
+vtb_fpga_top
+!s10a 1761138496
+!s110 1761156622
+!i10b 1
+!s100 iKW:<zAfak?k9on^z2T;^3
+IB690GGI1PM9U^19ZTOGh<3
+R1
+R0
+w1761138496
+8../../../../tb_fpga_top.v
+F../../../../tb_fpga_top.v
+L0 3
+R2
+r1
+!s85 0
+31
+!s108 1761156622.000000
+!s107 ../../../../tb_fpga_top.v|../../../../test_signal_gen.v|../../../../sample_buffer.v|../../../../logic_analyzer_core.v|../../../../input_synchronizer.v|../../../../fpga_top.v|../../../../debounce.v|
+!s90 -incr|-work|xil_defaultlib|../../../../debounce.v|../../../../fpga_top.v|../../../../input_synchronizer.v|../../../../logic_analyzer_core.v|../../../../sample_buffer.v|../../../../test_signal_gen.v|../../../../tb_fpga_top.v|
+!i113 1
+R5
+R6
+vtb_fpga_top_config
+!s110 1761326407
+!i10b 1
+!s100 83JTfMNS4FV4bo[c@`PNO1
+ImJEiEebWb3Jnmizg=B;?C0
+R1
+R0
+w1761326349
+8../../../../tb_fpga_top_config.v
+F../../../../tb_fpga_top_config.v
+L0 4
+R2
+r1
+!s85 0
+31
+!s108 1761326407.000000
+R3
+R4
+!i113 1
+R5
+R6
+vtb_input_synchronizer
+!s10a 1761066923
+!s110 1761117233
+!i10b 1
+!s100 In_[[XN1IMI4PXOCT`6DE0
+I_22bkdn5>]nkk;0dP2:5:0
+R1
+R0
+w1761066923
+8../../../../tb_input_synchronizer.v
+F../../../../tb_input_synchronizer.v
+L0 3
+R2
+r1
+!s85 0
+31
+!s108 1761117233.000000
+R9
+R10
+!i113 1
+R5
+R6
+vtb_logic_analyzer_core
+!s10a 1761067130
+!s110 1761150743
+!i10b 1
+!s100 :QdC:6c7G;8?zc_h_Qhmf0
+IeQRVP317APNlM2mJJGlc71
+R1
+R0
+w1761067130
+8../../../../tb_logic_analyzer_core.v
+F../../../../tb_logic_analyzer_core.v
+L0 3
+R2
+r1
+!s85 0
+31
+!s108 1761150743.000000
+!s107 ../../../../tb_logic_analyzer_core.v|../../../../logic_analyzer_core.v|
+!s90 -incr|-work|xil_defaultlib|../../../../logic_analyzer_core.v|../../../../tb_logic_analyzer_core.v|
+!i113 1
+R5
+R6
+vtb_sample_buffer
+R11
+!i10b 1
+!s100 ^?9:nO0CDCgEUEZ6b0QOg0
+I6W`1Qa6zYDPCYYk<h^aZL0
+R1
+R0
+w1761067046
+8../../../../tb_sample_buffer.v
+F../../../../tb_sample_buffer.v
+L0 3
+R2
+r1
+!s85 0
+31
+R12
+R13
+R14
+!i113 1
+R5
+R6
+vtb_test_signal_gen
+Z15 !s110 1761150096
+!i10b 1
+!s100 b3j5Co^zHK<G]KWlWHG5?3
+Ik0V:c?J?Rd4`L@W>7;>U23
+R1
+R0
+w1761067199
+8../../../../tb_test_signal_gen.v
+F../../../../tb_test_signal_gen.v
+L0 3
+R2
+r1
+!s85 0
+31
+Z16 !s108 1761150096.000000
+Z17 !s107 ../../../../tb_test_signal_gen.v|../../../../test_signal_gen.v|
+Z18 !s90 -incr|-work|xil_defaultlib|../../../../test_signal_gen.v|../../../../tb_test_signal_gen.v|
+!i113 1
+R5
+R6
+vtest_signal_gen
+!s10a 1761067177
+R15
+!i10b 1
+!s100 Y>Oned^1d33E0Ij8d:kOZ1
+IaE12<EJQE90YF7=I2cgWM2
+R1
+R0
+w1761067177
+8../../../../test_signal_gen.v
+F../../../../test_signal_gen.v
+L0 3
+R2
+r1
+!s85 0
+31
+R16
+R17
+R18
+!i113 1
+R5
+R6

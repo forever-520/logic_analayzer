@@ -1,5 +1,11 @@
 `timescale 1ns / 1ps
-
+/*
+ * 测试平台: tb_logic_analyzer_core
+ * 功能概述: 针对逻辑分析仪核心验证电平/边沿触发、OR/AND-ACC/AND-COIN 三种模式，
+ *           观察 wr_en/wr_addr/wr_data 写口以及 captured/triggered/done 标志。
+ * 能否展示“存储后的数据”: 本测试仅观察写口，不包含 BRAM 读出。
+ *                       若要查看已存储内容，可配合 sample_buffer 或使用 uart_bram_streamer。
+ */
 module tb_logic_analyzer_core;
 
     reg         clk;

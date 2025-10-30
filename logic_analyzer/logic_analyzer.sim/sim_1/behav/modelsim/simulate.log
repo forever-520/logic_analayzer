@@ -1,0 +1,169 @@
+# do {tb_fpga_top_config_simulate.do}
+# vsim -voptargs=""+acc"" -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -lib xil_defaultlib xil_defaultlib.tb_fpga_top_config xil_defaultlib.glbl 
+# Start time: 01:20:11 on Oct 25,2025
+# Loading xil_defaultlib.tb_fpga_top_config
+# Loading xil_defaultlib.fpga_top
+# Loading xil_defaultlib.input_synchronizer
+# Loading xil_defaultlib.debounce
+# Loading xil_defaultlib.logic_analyzer_core
+# Loading xil_defaultlib.sample_buffer
+# Loading xil_defaultlib.test_signal_gen
+# Loading xil_defaultlib.glbl
+# 1
+# 1
+# .main_pane.wave.interior.cs.body.pw.wf
+# .main_pane.structure.interior.cs.body.struct
+# .main_pane.objects.interior.cs.body.tree
+# 
+# 
+# [Test 1] OR Mode (Independent Trigger) Verification
+# -------------------------------------------------
+# --> Configuring CH0 to 001...
+#     Channel 0 selected.
+#     Current state: 000, Target: 001, Need 1 presses.
+run -all
+#     Configuration complete.
+# --> Configuring CH1 to 011...
+#     Channel 1 selected.
+#     Current state: 000, Target: 011, Need 2 presses.
+#     Configuration complete.
+# =================================================
+# Current Config | Selected CH: 1 | Trigger Mode:      OR (Independent)
+# -------------------------------------------------
+# CH | Code | Mode      | Status
+# ---|------|-----------|----------
+#  0 | 001  | RisingEdge|
+#  1 | 011  | FallingEdg| <- Selected
+#  2 | 000  | Disabled  |
+#  3 | 000  | Disabled  |
+#  4 | 000  | Disabled  |
+#  5 | 000  | Disabled  |
+#  6 | 000  | Disabled  |
+#  7 | 000  | Disabled  |
+# =================================================
+# Starting capture (OR mode)...
+# 
+# Generating rising edge on CH0. System should trigger.
+# OR Mode Trigger Successful! Capture done.
+# 
+# 
+# [Test 2] AND Mode (Combined Trigger) Verification
+# -------------------------------------------------
+# --> Configuring CH0 to 001...
+#     Channel 0 selected.
+#     Current state: 000, Target: 001, Need 1 presses.
+#     Configuration complete.
+# --> Configuring CH1 to 011...
+#     Channel 1 selected.
+#     Current state: 000, Target: 011, Need 2 presses.
+#     Configuration complete.
+# Switching to AND mode (AND-ACC)...
+# =================================================
+# Current Config | Selected CH: 1 | Trigger Mode:  AND-ACC (Accumulate)
+# -------------------------------------------------
+# CH | Code | Mode      | Status
+# ---|------|-----------|----------
+#  0 | 001  | RisingEdge|
+#  1 | 011  | FallingEdg| <- Selected
+#  2 | 000  | Disabled  |
+#  3 | 000  | Disabled  |
+#  4 | 000  | Disabled  |
+#  5 | 000  | Disabled  |
+#  6 | 000  | Disabled  |
+#  7 | 000  | Disabled  |
+# =================================================
+# Starting capture (AND mode)...
+# 
+# Generating rising edge on CH0 only. Should NOT trigger.
+# Status: led_capturing=1, led_triggered=0, led_done=0
+# 
+# Generating falling edge on CH1. Should trigger now.
+# AND Mode Trigger Successful! Capture done.
+# 
+# 
+# [Test 3] Level Trigger (OR and AND)
+# -------------------------------------------------
+# --> Configuring CH0 to 101...
+#     Channel 0 selected.
+#     Current state: 000, Target: 101, Need 3 presses.
+#     Configuration complete.
+# --> Configuring CH1 to 111...
+#     Channel 1 selected.
+#     Current state: 000, Target: 111, Need 4 presses.
+#     Configuration complete.
+# Switching to OR mode...
+# =================================================
+# Current Config | Selected CH: 1 | Trigger Mode:      OR (Independent)
+# -------------------------------------------------
+# CH | Code | Mode      | Status
+# ---|------|-----------|----------
+#  0 | 101  | HighLevel |
+#  1 | 111  | LowLevel  | <- Selected
+#  2 | 000  | Disabled  |
+#  3 | 000  | Disabled  |
+#  4 | 000  | Disabled  |
+#  5 | 000  | Disabled  |
+#  6 | 000  | Disabled  |
+#  7 | 000  | Disabled  |
+# =================================================
+# Starting capture (Level OR mode)...
+# Level OR Trigger Successful!
+# Switching to AND mode...
+# =================================================
+# Current Config | Selected CH: 1 | Trigger Mode:  AND-ACC (Accumulate)
+# -------------------------------------------------
+# CH | Code | Mode      | Status
+# ---|------|-----------|----------
+#  0 | 101  | HighLevel |
+#  1 | 111  | LowLevel  | <- Selected
+#  2 | 000  | Disabled  |
+#  3 | 000  | Disabled  |
+#  4 | 000  | Disabled  |
+#  5 | 000  | Disabled  |
+#  6 | 000  | Disabled  |
+#  7 | 000  | Disabled  |
+# =================================================
+# Starting capture (Level AND mode)...
+# Level AND Trigger Successful!
+# 
+# 
+# [Test 4] AND-COIN Mode (Coincident Trigger) Verification
+# -------------------------------------------------
+# --> Configuring CH0 to 001...
+#     Channel 0 selected.
+#     Current state: 000, Target: 001, Need 1 presses.
+#     Configuration complete.
+# --> Configuring CH1 to 001...
+#     Channel 1 selected.
+#     Current state: 000, Target: 001, Need 1 presses.
+#     Configuration complete.
+# =================================================
+# Current Config | Selected CH: 1 | Trigger Mode: AND-COIN (Coincident)
+# -------------------------------------------------
+# CH | Code | Mode      | Status
+# ---|------|-----------|----------
+#  0 | 001  | RisingEdge|
+#  1 | 001  | RisingEdge| <- Selected
+#  2 | 000  | Disabled  |
+#  3 | 000  | Disabled  |
+#  4 | 000  | Disabled  |
+#  5 | 000  | Disabled  |
+#  6 | 000  | Disabled  |
+#  7 | 000  | Disabled  |
+# =================================================
+# Starting capture (AND-COIN mode)...
+# 
+# CH0 rising only -> should NOT trigger.
+# CH1 rising later -> should still NOT trigger.
+# Coincident rising on CH0 & CH1 -> should TRIGGER.
+# AND-COIN Mode Trigger Successful! Capture done. Trigger index=310
+# 
+# ========================================
+# All Tests Completed Successfully
+# ========================================
+# ** Note: $finish    : ../../../../tb_fpga_top_config.v(350)
+#    Time: 1619250 ns  Iteration: 0  Instance: /tb_fpga_top_config
+# 1
+# Break in Module tb_fpga_top_config at ../../../../tb_fpga_top_config.v line 350
+# End time: 09:58:21 on Oct 25,2025, Elapsed time: 8:38:10
+# Errors: 0, Warnings: 0

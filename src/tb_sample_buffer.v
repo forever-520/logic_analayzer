@@ -1,5 +1,10 @@
 `timescale 1ns / 1ps
-
+/*
+ * 测试平台: tb_sample_buffer
+ * 功能概述: 验证同步双口 BRAM 读写。先按地址写入 0..255，再按地址读出比对。
+ * 能否展示采集到的数据: 可以。该仿真会从 RAM 读出并在不一致时打印，
+ *                       你也可以将循环中加入 $display 打印前 N 个 rd_data 即可直观看到“存储的数据”。
+ */
 module tb_sample_buffer;
 
     reg         wr_clk;
