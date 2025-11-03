@@ -1,0 +1,415 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dE:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/modelsim
+vasym_bwe_bb
+Z1 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+Z2 !s110 1762195796
+!i10b 1
+!s100 cO03bE2znQBaXCi;dH:2l1
+Io=hgzo[zF9Y;oC57VUGJG1
+Z3 VDg1SIo80bB@j0V0VzS_@n1
+Z4 !s105 xpm_memory_sv_unit
+S1
+R0
+Z5 w1605732258
+Z6 8F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Z7 FF:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+L0 8037
+Z8 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z9 !s108 1762195796.000000
+Z10 !s107 F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv|F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv|
+Z11 !s90 -incr|-sv|-work|xpm|F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv|F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv|
+!i113 1
+Z12 o-sv -work xpm
+Z13 tCvgOpt 0
+Pvcomponents
+DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z14 w1605732256
+R0
+8F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_VCOMP.vhd
+FF:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_VCOMP.vhd
+l0
+L11
+V9:3U_H2cANb;L94J:hnfG0
+!s100 H0c[:`mBkjUc6^9aHX<U92
+OV;C;10.5b;63
+31
+!s110 1762195797
+!i10b 1
+R9
+!s90 -93|-work|xpm|F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_VCOMP.vhd|
+!s107 F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_VCOMP.vhd|
+!i113 1
+o-93 -work xpm
+tExplicit 1 CvgOpt 0
+vxpm_cdc_array_single
+R1
+R2
+!i10b 1
+!s100 =VCjSNQS`Sc;VVc:>Ya>X3
+IHGR0Fgg5BO]U4R?<bH_IW2
+R3
+Z15 !s105 xpm_cdc_sv_unit
+S1
+R0
+R14
+Z16 8F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv
+Z17 FF:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv
+L0 903
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+vxpm_cdc_async_rst
+R1
+R2
+!i10b 1
+!s100 0^B>I@]YG>O`F06]ME?Kz2
+IoLd=QcfO8`^nY5F=kd8eh1
+R3
+R15
+S1
+R0
+R14
+R16
+R17
+L0 1175
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+vxpm_cdc_gray
+R1
+R2
+!i10b 1
+!s100 c5:[hXPGkREE=om;h1PER2
+IJ:B3F[^IZ^hda3P:ginn90
+R3
+R15
+S1
+R0
+R14
+R16
+R17
+L0 284
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+vxpm_cdc_handshake
+R1
+R2
+!i10b 1
+!s100 2nX[0D7bN@CTBzPhT6ZId2
+ImjOPb`b?R4PR[n3LVhN_i1
+R3
+R15
+S1
+R0
+R14
+R16
+R17
+L0 469
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+vxpm_cdc_low_latency_handshake
+R1
+R2
+!i10b 1
+!s100 DUQY8F6f@DWmT?f9Uo8G01
+IVH0Y]9JPm1FmIJ7jf6hlX1
+R3
+R15
+S1
+R0
+R14
+R16
+R17
+L0 1265
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+vxpm_cdc_pulse
+R1
+R2
+!i10b 1
+!s100 =[IbJ?5ZSd_W^B7BUX1:S1
+I@bP1bURLVz8oXnjnKdY2G0
+R3
+R15
+S1
+R0
+R14
+R16
+R17
+L0 715
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+vxpm_cdc_single
+R1
+R2
+!i10b 1
+!s100 ET1C2ZNLeac[<SbXI_oJ_0
+I<0Z>]59F_2]5:64AEObFc1
+R3
+R15
+S1
+R0
+R14
+R16
+R17
+L0 153
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+vxpm_cdc_sync_rst
+R1
+R2
+!i10b 1
+!s100 SPJeHj8CAXRP0D6YU2jDG2
+IjTDE6<>c[F6aA`QAn^KTj3
+R3
+R15
+S1
+R0
+R14
+R16
+R17
+L0 1059
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+vxpm_memory_base
+R1
+R2
+!i10b 1
+!s100 74geF[jXen]0B5VCJTBKa0
+Im8]hM845h8l[PIE0]QFj10
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 57
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+vxpm_memory_dpdistram
+R1
+R2
+!i10b 1
+!s100 TVjAj2_`i2b=N5:TV@KkV1
+I>4QO^i``AMkK6j]o?9PIV2
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 8098
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+vxpm_memory_dprom
+R1
+R2
+!i10b 1
+!s100 EYd8?<VJ_2QAYF5]NlQXj0
+I]5Ck5ImZBXzMPQQ8LaSo;2
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 8240
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+vxpm_memory_sdpram
+R1
+R2
+!i10b 1
+!s100 2jXV^Rm<MZWN>Sa=;nP2l0
+Iz`D7YgAd>20zCVKmZEXe83
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 8404
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+vxpm_memory_spram
+R1
+R2
+!i10b 1
+!s100 ?:RHZ[FA<bM4;<Bohffii1
+IzFoLH7OFLdYKiLK_mEmV51
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 8571
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+vxpm_memory_sprom
+R1
+R2
+!i10b 1
+!s100 XGJZcVW<>L_;6CLVCQhVF1
+IdDe0P@CYV6IOFUV5Tmm7G0
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 8727
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+vxpm_memory_tdpram
+R1
+R2
+!i10b 1
+!s100 zzAmCi@@VPMRV2BYLQ:Nn3
+I;8DnFeYb0EHOgKVzNRO_32
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 8871
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13

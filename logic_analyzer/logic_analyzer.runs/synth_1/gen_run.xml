@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenRun Id="synth_1" LaunchPart="xc7z010clg400-2" LaunchTime="1761840820">
   <File Type="PA-TCL" Name="fpga_top.tcl"/>
-  <File Type="RDS-PROPCONSTRS" Name="fpga_top_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="fpga_top_reports.tcl"/>
   <File Type="RDS-RDS" Name="fpga_top.vds"/>
   <File Type="RDS-UTIL" Name="fpga_top_utilization_synth.rpt"/>
   <File Type="RDS-UTIL-PB" Name="fpga_top_utilization_synth.pb"/>
   <File Type="RDS-DCP" Name="fpga_top.dcp"/>
-  <File Type="VDS-TIMINGSUMMARY" Name="fpga_top_timing_summary_synth.rpt"/>
-  <File Type="VDS-TIMING-PB" Name="fpga_top_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PPRDIR/../src/debounce.v">

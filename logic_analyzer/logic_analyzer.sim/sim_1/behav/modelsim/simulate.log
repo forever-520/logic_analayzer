@@ -1,6 +1,6 @@
 # do {tb_fpga_top_config_simulate.do}
-# vsim -voptargs=""+acc"" -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -lib xil_defaultlib xil_defaultlib.tb_fpga_top_config xil_defaultlib.glbl 
-# Start time: 01:20:11 on Oct 25,2025
+# vsim -voptargs=""+acc"" -L xil_defaultlib -L xpm -L unisims_ver -L unimacro_ver -L secureip -lib xil_defaultlib xil_defaultlib.tb_fpga_top_config xil_defaultlib.glbl 
+# Start time: 02:50:05 on Nov 04,2025
 # Loading xil_defaultlib.tb_fpga_top_config
 # Loading xil_defaultlib.fpga_top
 # Loading xil_defaultlib.input_synchronizer
@@ -8,6 +8,7 @@
 # Loading xil_defaultlib.logic_analyzer_core
 # Loading xil_defaultlib.sample_buffer
 # Loading xil_defaultlib.test_signal_gen
+# Loading xil_defaultlib.ila
 # Loading xil_defaultlib.glbl
 # 1
 # 1
@@ -75,7 +76,7 @@ run -all
 # Starting capture (AND mode)...
 # 
 # Generating rising edge on CH0 only. Should NOT trigger.
-# Status: led_capturing=1, led_triggered=0, led_done=0
+# Status: capturing=1, triggered=0, done=0
 # 
 # Generating falling edge on CH1. Should trigger now.
 # AND Mode Trigger Successful! Capture done.
@@ -161,9 +162,9 @@ run -all
 # ========================================
 # All Tests Completed Successfully
 # ========================================
-# ** Note: $finish    : ../../../../tb_fpga_top_config.v(350)
+# ** Note: $finish    : ../../../../../sim/tb_fpga_top_config_commented.v(390)
 #    Time: 1619250 ns  Iteration: 0  Instance: /tb_fpga_top_config
 # 1
-# Break in Module tb_fpga_top_config at ../../../../tb_fpga_top_config.v line 350
-# End time: 09:58:21 on Oct 25,2025, Elapsed time: 8:38:10
+# Break in Module tb_fpga_top_config at ../../../../../sim/tb_fpga_top_config_commented.v line 390
+# End time: 02:50:43 on Nov 04,2025, Elapsed time: 0:00:38
 # Errors: 0, Warnings: 0
