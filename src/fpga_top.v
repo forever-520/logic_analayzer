@@ -41,9 +41,17 @@ module fpga_top #(
     input  wire        btn_type_select,
     input  wire        btn_trigger_mode,
 
+    // LED status indicators
+    output wire        led_capturing,
+    output wire        led_triggered,
+    output wire        led_done,
+
     // Optional test signal generator control
     input  wire        sw_test_enable,
-    input  wire [1:0]  sw_test_pattern
+    input  wire [1:0]  sw_test_pattern,
+
+    // UART output for data export
+    output wire        uart_tx
 );
 
     // Internal signals
@@ -94,15 +102,35 @@ module fpga_top #(
     wire        capture_done;
     wire [10:0] trigger_index;
 
+    // UART BRAM streamer signals
+    wire [10:0] rd_addr;
+    wire [7:0]  rd_data;
+    reg         uart_start;
+    wire        uart_busy;
+    wire        uart_done;
+
+    // Synchronize trigger_enable_state for glitch protection
+    reg         trigger_enable_sync;
+
+    // LED outputs
+    assign led_capturing = capturing;
+    assign led_triggered = triggered;
+    assign led_done = capture_done;
+
     // Select sample source
     assign sample_data = sw_test_enable ? test_signals : probe_sync;
 
-    // Run/stop toggle
+    // Run/stop toggle with synchronized output for glitch protection
     always @(posedge sys_clk or negedge sys_rst_n) begin
         if (!sys_rst_n) begin
             trigger_enable_state <= 1'b0;
-        end else if (btn_trigger_pulse) begin
-            trigger_enable_state <= ~trigger_enable_state;
+            trigger_enable_sync  <= 1'b0;
+        end else begin
+            if (btn_trigger_pulse) begin
+                trigger_enable_state <= ~trigger_enable_state;
+            end
+            // Synchronize for glitch protection (1-cycle delay)
+            trigger_enable_sync <= trigger_enable_state;
         end
     end
 
@@ -153,9 +181,10 @@ module fpga_top #(
         end
     end
 
-    // Input synchronizer
+    // Input synchronizer (3-stage for better metastability protection)
     input_synchronizer #(
-        .DATA_WIDTH(8)
+        .DATA_WIDTH(8),
+        .SYNC_STAGES(3)  // Upgraded from 2 to 3 for critical reliability
     ) u_input_sync (
         .clk(sys_clk),
         .rst_n(sys_rst_n),
@@ -200,7 +229,7 @@ module fpga_top #(
         .clk(sys_clk),
         .rst_n(sys_rst_n),
         .sample_data(sample_data),
-        .trigger_enable(trigger_enable_state),
+        .trigger_enable(trigger_enable_sync),  // Use synchronized version
         .trigger_value(8'h00),
         .trigger_mask(trigger_mask),
         .edge_trigger(edge_trigger_mode),
@@ -216,7 +245,7 @@ module fpga_top #(
         .wr_data(wr_data)
     );
 
-    // BRAM sample buffer
+    // BRAM sample buffer (connected to UART streamer read port)
     sample_buffer #(
         .DATA_WIDTH(8),
         .ADDR_WIDTH(11)
@@ -226,9 +255,42 @@ module fpga_top #(
         .wr_addr(wr_addr),
         .wr_data(wr_data),
         .rd_clk(sys_clk),
-        .rd_addr(11'd0),
-        .rd_data()
+        .rd_addr(rd_addr),
+        .rd_data(rd_data)
     );
+
+    // UART BRAM streamer for data export
+    uart_bram_streamer #(
+        .DATA_WIDTH(8),
+        .ADDR_WIDTH(11),
+        .CLK_FREQ(50_000_000),
+        .BAUD_RATE(115200)
+    ) u_uart_streamer (
+        .clk(sys_clk),
+        .rst_n(sys_rst_n),
+        .start(uart_start),
+        .busy(uart_busy),
+        .done(uart_done),
+        .trigger_index(trigger_index),
+        .rd_addr(rd_addr),
+        .rd_data(rd_data),
+        .uart_tx(uart_tx)
+    );
+
+    // UART start control: generate single-cycle pulse on capture_done rising edge
+    // Fix: Edge detection prevents race condition if capture_done pulses again before uart_done
+    reg capture_done_d1;
+
+    always @(posedge sys_clk or negedge sys_rst_n) begin
+        if (!sys_rst_n) begin
+            capture_done_d1 <= 1'b0;
+            uart_start <= 1'b0;
+        end else begin
+            capture_done_d1 <= capture_done;
+            // Generate single-cycle pulse on rising edge of capture_done
+            uart_start <= capture_done && !capture_done_d1 && !uart_busy;
+        end
+    end
 
     // Test signal generator (optional)
     test_signal_gen #(

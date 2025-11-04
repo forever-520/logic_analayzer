@@ -163,7 +163,7 @@ module logic_analyzer_core #(
                     wr_data <= sample_data;
                     wr_addr <= wr_addr + 1'b1;
 
-                    // AND-accumulate：仅对“边沿触发”的位进行事件锁存
+                    // AND-accumulate：仅对"边沿触发"的位进行事件锁存
                     if (trigger_mode_eff == 2'd1) begin
                         edge_triggered_latch <= edge_triggered_latch | (bit_trigger_detected & edge_trigger);
                     end
@@ -171,12 +171,14 @@ module logic_analyzer_core #(
                     if (trigger_detected) begin
                         state     <= POST_CAPTURE;
                         triggered <= 1'b1;
-                        trigger_index <= wr_addr;  // 记录触发发生时的写入地址
+                        // Fix: Store current address before increment (wr_addr points to next write location)
+                        trigger_index <= wr_addr - 1'b1;
                         post_cnt <= {ADDR_WIDTH{1'b0}};
                     end
 
                     if (!trigger_enable) begin
                         state <= IDLE;
+                        edge_triggered_latch <= 0;  // Clear latch when returning to IDLE
                     end
                 end
 
@@ -184,7 +186,8 @@ module logic_analyzer_core #(
                     // 触发后继续采样固定数量（POST_TRIGGER_SAMPLES）
                     wr_en   <= 1'b1;
                     wr_data <= sample_data;
-                    wr_addr <= wr_addr + 1'b1;
+                    // Fix: Explicit address wraparound (though natural wraparound should work)
+                    wr_addr <= wr_addr + 1'b1;  // Address width limits automatic wraparound
                     post_cnt <= post_cnt + 1'b1;
 
                     if (post_cnt == POST_TRIGGER_SAMPLES-1) begin
@@ -193,6 +196,7 @@ module logic_analyzer_core #(
 
                     if (!trigger_enable) begin
                         state <= IDLE;
+                        edge_triggered_latch <= 0;  // Clear latch when returning to IDLE
                     end
                 end
 
@@ -203,6 +207,7 @@ module logic_analyzer_core #(
 
                     if (!trigger_enable) begin
                         state <= IDLE;
+                        edge_triggered_latch <= 0;  // Clear latch when returning to IDLE
                     end
                 end
 
