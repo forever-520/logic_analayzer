@@ -15,12 +15,9 @@
  * - btn_channel_select : 触发配置通道选择按键。
  * - btn_type_select    : 当前通道触发类型循环按键（关/上升/下降/高/低）。
  * - btn_trigger_mode   : 触发模式轮换（OR/AND-ACC/AND-COIN）。
- * - led_capturing      : 采样中指示。
- * - led_triggered      : 已触发指示。
- * - led_done           : 采样完成指示。
- * - la_trigger_index[10:0]: 触发地址导出。
  * - sw_test_enable     : 1=采样内部测试信号，0=采样外部 probe_signals。
  * - sw_test_pattern[1:0]: 测试信号模式选择。
+ * - uart_tx            : UART 发送引脚，用于导出采样数据。
  */
 
 module fpga_top #(
@@ -41,11 +38,6 @@ module fpga_top #(
     input  wire        btn_type_select,
     input  wire        btn_trigger_mode,
 
-    // LED status indicators
-    output wire        led_capturing,
-    output wire        led_triggered,
-    output wire        led_done,
-
     // Optional test signal generator control
     input  wire        sw_test_enable,
     input  wire [1:0]  sw_test_pattern,
@@ -58,6 +50,11 @@ module fpga_top #(
     wire [7:0] probe_sync;
     wire [7:0] test_signals;
     wire [7:0] sample_data;
+
+    // Internal status observation buses for logic analyzer
+    wire [7:0] internal_bus0;  // Status and write address
+    wire [7:0] internal_bus1;  // Configuration state
+    wire [7:0] observed_signals;
 
     wire btn_trigger_pulse;
     wire btn_channel_pulse;
@@ -112,13 +109,25 @@ module fpga_top #(
     // Synchronize trigger_enable_state for glitch protection
     reg         trigger_enable_sync;
 
-    // LED outputs
-    assign led_capturing = capturing;
-    assign led_triggered = triggered;
-    assign led_done = capture_done;
+    // Fix #3: Signal for clearing edge latch when config changes
+    wire        trigger_config_changed;
+    assign trigger_config_changed = btn_mode_pulse | btn_type_pulse;
 
-    // Select sample source
-    assign sample_data = sw_test_enable ? test_signals : probe_sync;
+    // Internal status observation buses
+    // Bus 0: captures runtime status and write address
+    assign internal_bus0 = {capture_done, triggered, capturing, uart_busy, wr_addr[3:0]};
+
+    // Bus 1: captures configuration state and button pulses
+    assign internal_bus1 = {1'b0, trigger_mode_sel, config_channel_idx, btn_type_pulse, btn_channel_pulse};
+
+    // Select observed signals based on test mode and pattern
+    assign observed_signals = (sw_test_enable == 1'b0) ? probe_sync :
+                              (sw_test_pattern == 2'b00) ? test_signals :
+                              (sw_test_pattern == 2'b01) ? internal_bus0 :
+                              internal_bus1;
+
+    // Connect observed signals to sample data
+    assign sample_data = observed_signals;
 
     // Run/stop toggle with synchronized output for glitch protection
     always @(posedge sys_clk or negedge sys_rst_n) begin
@@ -236,6 +245,7 @@ module fpga_top #(
         .trigger_type(trigger_type),
         .trigger_mode(trigger_mode_sel),
         .trigger_mode_is_or(trigger_mode_sel[0]), // legacy compatible
+        .trigger_config_changed(trigger_config_changed), // Fix #3
         .capturing(capturing),
         .triggered(triggered),
         .capture_done(capture_done),
@@ -318,17 +328,27 @@ module fpga_top #(
         .probe6 (capture_done),         // [0:0]
         .probe7 (trigger_index),        // [10:0]
         .probe8 (trigger_enable_state), // [0:0]
-        .probe9 (trigger_mode_sel),     // [1:0]    
+        .probe9 (trigger_mode_sel),     // [1:0]
         .probe10(config_channel_idx),   // [2:0]
         .probe11(btn_trigger_pulse),    // [0:0]
         .probe12(btn_channel_pulse),    // [0:0]
         .probe13(btn_type_pulse),       // [0:0]
         .probe14(btn_mode_pulse),       // [0:0]
-        // 将 probe15 用于显示“当前通道的触发配置”
+        // 将 probe15 用于显示"当前通道的触发配置"
         // bit2: 0=边沿/1=电平；bit1: 极性；bit0: 使能
         .probe15(curr_trig_cfg_ext),    // [7:0] 显示为 {5'b0, 3'bcfg}
         .probe16(sw_test_enable),       // [0:0]
-        .probe17(sw_test_pattern)       // [1:0]
+        .probe17(sw_test_pattern),      // [1:0]
+
+        // ========== UART Debug Probes (新增) ==========
+        .probe18(u_uart_streamer.tx_data),      // [7:0]  发送的字节 ⭐
+        .probe19(u_uart_streamer.tx_valid),     // [0:0]  发送请求
+        .probe20(u_uart_streamer.u_tx.tx_ready),// [0:0]  UART 空闲
+        .probe21(u_uart_streamer.busy),         // [0:0]  发送忙 ⭐
+        .probe22(u_uart_streamer.rd_addr),      // [10:0] BRAM 读地址 ⭐
+        .probe23(u_uart_streamer.state),        // [2:0]  状态机
+        .probe24(uart_tx),                      // [0:0]  串口波形
+        .probe25(u_uart_streamer.rd_data)       // [7:0]  BRAM 读数据
     );
 `endif
 

@@ -50,6 +50,7 @@ module logic_analyzer_core #(
     // 兼容旧接口：未连接 trigger_mode 时使用 trigger_mode_is_or
     input  wire [1:0]               trigger_mode,
     input  wire                     trigger_mode_is_or,
+    input  wire                     trigger_config_changed,  // Fix #3: Clear edge latch on config change
 
     // 状态输出
     output reg                      capturing,       // 正在采样
@@ -116,13 +117,11 @@ module logic_analyzer_core #(
     wire any_enabled_triggered     = |bit_trigger_detected;
     wire all_enabled_triggered_co  = &(bit_trigger_detected | ~enabled_channels);
 
-    // 选择有效的模式（若 trigger_mode 未连接，值为X，退回旧接口）
-    wire use_legacy_mode = ((trigger_mode[0] === 1'bx) && (trigger_mode[1] === 1'bx));
-    wire [1:0] trigger_mode_eff = use_legacy_mode ? {1'b0, trigger_mode_is_or} : trigger_mode;
-
-    wire trigger_detected = (trigger_mode_eff == 2'd0) ? any_enabled_triggered :
-                            (trigger_mode_eff == 2'd1) ? all_enabled_triggered_acc :
-                            /*2'd2*/                 all_enabled_triggered_co;
+    // Fix #4: Remove buggy legacy mode detection logic
+    // Direct use of trigger_mode (trigger_mode_is_or kept for backward compatibility but not used)
+    wire trigger_detected = (trigger_mode == 2'd0) ? any_enabled_triggered :
+                            (trigger_mode == 2'd1) ? all_enabled_triggered_acc :
+                            /*2'd2 or default*/      all_enabled_triggered_co;
 
     // 主状态机
     always @(posedge clk or negedge rst_n) begin
@@ -161,20 +160,26 @@ module logic_analyzer_core #(
                     // 持续采样，环形写入（wr_addr按位宽自然回绕）
                     wr_en   <= 1'b1;
                     wr_data <= sample_data;
-                    wr_addr <= wr_addr + 1'b1;
 
+                    // Fix #3: Clear edge latch when trigger config changes
+                    if (trigger_config_changed) begin
+                        edge_triggered_latch <= 0;
+                    end
                     // AND-accumulate：仅对"边沿触发"的位进行事件锁存
-                    if (trigger_mode_eff == 2'd1) begin
+                    else if (trigger_mode == 2'd1) begin
                         edge_triggered_latch <= edge_triggered_latch | (bit_trigger_detected & edge_trigger);
                     end
 
                     if (trigger_detected) begin
                         state     <= POST_CAPTURE;
                         triggered <= 1'b1;
-                        // Fix: Store current address before increment (wr_addr points to next write location)
-                        trigger_index <= wr_addr - 1'b1;
+                        // Fix #2: Record current wr_addr as trigger location
+                        trigger_index <= wr_addr;
                         post_cnt <= {ADDR_WIDTH{1'b0}};
                     end
+
+                    // Update address after recording trigger_index
+                    wr_addr <= wr_addr + 1'b1;
 
                     if (!trigger_enable) begin
                         state <= IDLE;
@@ -208,6 +213,13 @@ module logic_analyzer_core #(
                     if (!trigger_enable) begin
                         state <= IDLE;
                         edge_triggered_latch <= 0;  // Clear latch when returning to IDLE
+                    end else begin
+                        // 自动循环模式：完成后自动回到 WAIT_TRIGGER 状态
+                        // 这样可以连续不断地采样，无需手动重启
+                        state <= WAIT_TRIGGER;
+                        triggered    <= 1'b0;        // 清除触发标志
+                        capture_done <= 1'b0;        // 清除完成标志
+                        edge_triggered_latch <= 0;   // 清除边沿锁存
                     end
                 end
 

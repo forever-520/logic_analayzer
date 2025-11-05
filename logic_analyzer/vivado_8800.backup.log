@@ -1,0 +1,557 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Wed Nov  5 14:50:05 2025
+# Process ID: 8800
+# Current directory: E:/fpga_class/vivado/logic_analyzer/logic_analyzer
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent31388 E:\fpga_class\vivado\logic_analyzer\logic_analyzer\logic_analyzer.xpr
+# Log file: E:/fpga_class/vivado/logic_analyzer/logic_analyzer/vivado.log
+# Journal file: E:/fpga_class/vivado/logic_analyzer/logic_analyzer\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.xpr
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'F:/Xilinx/Vivado/2020.2/data/ip'.
+open_project: Time (s): cpu = 00:00:15 ; elapsed = 00:00:07 . Memory (MB): peak = 1109.746 ; gain = 0.000
+update_compile_order -fileset sources_1
+launch_simulation
+Command: launch_simulation 
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'ModelSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/modelsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-ModelSim-47] Finding simulator installation...
+INFO: [USF-ModelSim-49] Using simulator executables from 'E:\ModelSim\modelsim_ase\win32aloem'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-modelsim-7] Finding pre-compiled libraries...
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_fpga_top_config' in fileset 'sim_1'...
+INFO: [USF-ModelSim-107] Finding global include files...
+INFO: [USF-ModelSim-108] Finding include directories and verilog header directory paths...
+INFO: [USF-ModelSim-109] Fetching design files from 'sim_1'...
+INFO: [USF-ModelSim-2] ModelSim::Compile design
+INFO: [USF-ModelSim-15] Creating automatic 'do' files...
+INFO: [USF-ModelSim-69] Executing 'COMPILE and ANALYZE' step in 'E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/modelsim'
+Reading E:/ModelSim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.5b
+
+# do {tb_fpga_top_config_compile.do}
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/work".
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/msim".
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/msim/xpm".
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/msim/xil_defaultlib".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap xpm modelsim_lib/msim/xpm 
+# Modifying modelsim.ini
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap xil_defaultlib modelsim_lib/msim/xil_defaultlib 
+# Modifying modelsim.ini
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:05:10 on Nov 05,2025
+# vlog -incr -sv -work xpm F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv 
+# -- Skipping module xpm_cdc_single
+# -- Skipping module xpm_cdc_gray
+# -- Skipping module xpm_cdc_handshake
+# -- Skipping module xpm_cdc_pulse
+# -- Skipping module xpm_cdc_array_single
+# -- Skipping module xpm_cdc_sync_rst
+# -- Skipping module xpm_cdc_async_rst
+# -- Skipping module xpm_cdc_low_latency_handshake
+# -- Skipping module xpm_memory_base
+# -- Skipping module asym_bwe_bb
+# -- Skipping module xpm_memory_dpdistram
+# -- Skipping module xpm_memory_dprom
+# -- Skipping module xpm_memory_sdpram
+# -- Skipping module xpm_memory_spram
+# -- Skipping module xpm_memory_sprom
+# -- Skipping module xpm_memory_tdpram
+# 
+# Top level modules:
+# 	xpm_cdc_gray
+# 	xpm_cdc_handshake
+# 	xpm_cdc_pulse
+# 	xpm_cdc_array_single
+# 	xpm_cdc_sync_rst
+# 	xpm_cdc_async_rst
+# 	xpm_cdc_low_latency_handshake
+# 	xpm_memory_dpdistram
+# 	xpm_memory_dprom
+# 	xpm_memory_sdpram
+# 	xpm_memory_spram
+# 	xpm_memory_sprom
+# 	xpm_memory_tdpram
+# End time: 15:05:10 on Nov 05,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:05:11 on Nov 05,2025
+# vcom -93 -work xpm F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_VCOMP.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling package VCOMPONENTS
+# End time: 15:05:11 on Nov 05,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:05:11 on Nov 05,2025
+# vlog -incr -work xil_defaultlib ../../../../logic_analyzer.gen/sources_1/ip/ila/sim/ila.v ../../../../../src/debounce.v ../../../../../src/fpga_top.v ../../../../../src/input_synchronizer.v ../../../../../src/logic_analyzer_core.v ../../../../../src/sample_buffer.v ../../../../../src/test_signal_gen.v ../../../../../src/uart_bram_streamer.v ../../../../../src/uart_tx.v ../../../../../sim/tb_fpga_top_config_commented.v 
+# -- Skipping module ila
+# -- Skipping module debounce
+# -- Compiling module fpga_top
+# -- Skipping module input_synchronizer
+# -- Compiling module logic_analyzer_core
+# -- Skipping module sample_buffer
+# -- Skipping module test_signal_gen
+# -- Compiling module uart_bram_streamer
+# -- Compiling module uart_tx
+# -- Skipping module tb_fpga_top_config
+# 
+# Top level modules:
+# 	tb_fpga_top_config
+# End time: 15:05:11 on Nov 05,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:05:11 on Nov 05,2025
+# vlog -work xil_defaultlib glbl.v 
+# -- Compiling module glbl
+# 
+# Top level modules:
+# 	glbl
+# End time: 15:05:11 on Nov 05,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+run_program: Time (s): cpu = 00:00:01 ; elapsed = 00:00:07 . Memory (MB): peak = 1109.746 ; gain = 0.000
+INFO: [USF-ModelSim-69] 'compile' step finished in '7' seconds
+INFO: [USF-ModelSim-4] ModelSim::Simulate design
+INFO: [USF-ModelSim-69] Executing 'SIMULATE' step in 'E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/modelsim'
+Program launched (PID=17020)
+launch_simulation: Time (s): cpu = 00:00:03 ; elapsed = 00:00:09 . Memory (MB): peak = 1109.746 ; gain = 0.000
+launch_simulation
+Command: launch_simulation 
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'ModelSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/modelsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-ModelSim-47] Finding simulator installation...
+INFO: [USF-ModelSim-49] Using simulator executables from 'E:\ModelSim\modelsim_ase\win32aloem'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-modelsim-7] Finding pre-compiled libraries...
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_fpga_top_config' in fileset 'sim_1'...
+INFO: [USF-ModelSim-107] Finding global include files...
+INFO: [USF-ModelSim-108] Finding include directories and verilog header directory paths...
+INFO: [USF-ModelSim-109] Fetching design files from 'sim_1'...
+INFO: [USF-ModelSim-2] ModelSim::Compile design
+INFO: [USF-ModelSim-15] Creating automatic 'do' files...
+INFO: [USF-ModelSim-69] Executing 'COMPILE and ANALYZE' step in 'E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/modelsim'
+Reading E:/ModelSim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.5b
+
+# do {tb_fpga_top_config_compile.do}
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/work".
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/msim".
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/msim/xpm".
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/msim/xil_defaultlib".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap xpm modelsim_lib/msim/xpm 
+# Modifying modelsim.ini
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap xil_defaultlib modelsim_lib/msim/xil_defaultlib 
+# Modifying modelsim.ini
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:43:18 on Nov 05,2025
+# vlog -incr -sv -work xpm F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv 
+# -- Skipping module xpm_cdc_single
+# -- Skipping module xpm_cdc_gray
+# -- Skipping module xpm_cdc_handshake
+# -- Skipping module xpm_cdc_pulse
+# -- Skipping module xpm_cdc_array_single
+# -- Skipping module xpm_cdc_sync_rst
+# -- Skipping module xpm_cdc_async_rst
+# -- Skipping module xpm_cdc_low_latency_handshake
+# -- Skipping module xpm_memory_base
+# -- Skipping module asym_bwe_bb
+# -- Skipping module xpm_memory_dpdistram
+# -- Skipping module xpm_memory_dprom
+# -- Skipping module xpm_memory_sdpram
+# -- Skipping module xpm_memory_spram
+# -- Skipping module xpm_memory_sprom
+# -- Skipping module xpm_memory_tdpram
+# 
+# Top level modules:
+# 	xpm_cdc_gray
+# 	xpm_cdc_handshake
+# 	xpm_cdc_pulse
+# 	xpm_cdc_array_single
+# 	xpm_cdc_sync_rst
+# 	xpm_cdc_async_rst
+# 	xpm_cdc_low_latency_handshake
+# 	xpm_memory_dpdistram
+# 	xpm_memory_dprom
+# 	xpm_memory_sdpram
+# 	xpm_memory_spram
+# 	xpm_memory_sprom
+# 	xpm_memory_tdpram
+# End time: 15:43:18 on Nov 05,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:43:18 on Nov 05,2025
+# vcom -93 -work xpm F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_VCOMP.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling package VCOMPONENTS
+# End time: 15:43:19 on Nov 05,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:43:19 on Nov 05,2025
+# vlog -incr -work xil_defaultlib ../../../../logic_analyzer.gen/sources_1/ip/ila/sim/ila.v ../../../../../src/debounce.v ../../../../../src/fpga_top.v ../../../../../src/input_synchronizer.v ../../../../../src/logic_analyzer_core.v ../../../../../src/sample_buffer.v ../../../../../src/test_signal_gen.v ../../../../../src/uart_bram_streamer.v ../../../../../src/uart_tx.v ../../../../../sim/tb_fpga_top_config_commented.v 
+# -- Skipping module ila
+# -- Skipping module debounce
+# -- Compiling module fpga_top
+# -- Skipping module input_synchronizer
+# -- Compiling module logic_analyzer_core
+# -- Skipping module sample_buffer
+# -- Skipping module test_signal_gen
+# -- Skipping module uart_bram_streamer
+# -- Skipping module uart_tx
+# -- Skipping module tb_fpga_top_config
+# 
+# Top level modules:
+# 	tb_fpga_top_config
+# End time: 15:43:19 on Nov 05,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:43:19 on Nov 05,2025
+# vlog -work xil_defaultlib glbl.v 
+# -- Compiling module glbl
+# 
+# Top level modules:
+# 	glbl
+# End time: 15:43:19 on Nov 05,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+INFO: [USF-ModelSim-69] 'compile' step finished in '3' seconds
+INFO: [USF-ModelSim-4] ModelSim::Simulate design
+INFO: [USF-ModelSim-69] Executing 'SIMULATE' step in 'E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/modelsim'
+Program launched (PID=7192)
+launch_simulation
+Command: launch_simulation 
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'ModelSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/modelsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-ModelSim-47] Finding simulator installation...
+INFO: [USF-ModelSim-49] Using simulator executables from 'E:\ModelSim\modelsim_ase\win32aloem'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-modelsim-7] Finding pre-compiled libraries...
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_fpga_top_config' in fileset 'sim_1'...
+INFO: [USF-ModelSim-107] Finding global include files...
+INFO: [USF-ModelSim-108] Finding include directories and verilog header directory paths...
+INFO: [USF-ModelSim-109] Fetching design files from 'sim_1'...
+INFO: [USF-ModelSim-2] ModelSim::Compile design
+INFO: [USF-ModelSim-15] Creating automatic 'do' files...
+INFO: [USF-ModelSim-69] Executing 'COMPILE and ANALYZE' step in 'E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/modelsim'
+Reading E:/ModelSim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.5b
+
+# do {tb_fpga_top_config_compile.do}
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/work".
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/msim".
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/msim/xpm".
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/msim/xil_defaultlib".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap xpm modelsim_lib/msim/xpm 
+# Modifying modelsim.ini
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap xil_defaultlib modelsim_lib/msim/xil_defaultlib 
+# Modifying modelsim.ini
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:45:33 on Nov 05,2025
+# vlog -incr -sv -work xpm F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv 
+# -- Skipping module xpm_cdc_single
+# -- Skipping module xpm_cdc_gray
+# -- Skipping module xpm_cdc_handshake
+# -- Skipping module xpm_cdc_pulse
+# -- Skipping module xpm_cdc_array_single
+# -- Skipping module xpm_cdc_sync_rst
+# -- Skipping module xpm_cdc_async_rst
+# -- Skipping module xpm_cdc_low_latency_handshake
+# -- Skipping module xpm_memory_base
+# -- Skipping module asym_bwe_bb
+# -- Skipping module xpm_memory_dpdistram
+# -- Skipping module xpm_memory_dprom
+# -- Skipping module xpm_memory_sdpram
+# -- Skipping module xpm_memory_spram
+# -- Skipping module xpm_memory_sprom
+# -- Skipping module xpm_memory_tdpram
+# 
+# Top level modules:
+# 	xpm_cdc_gray
+# 	xpm_cdc_handshake
+# 	xpm_cdc_pulse
+# 	xpm_cdc_array_single
+# 	xpm_cdc_sync_rst
+# 	xpm_cdc_async_rst
+# 	xpm_cdc_low_latency_handshake
+# 	xpm_memory_dpdistram
+# 	xpm_memory_dprom
+# 	xpm_memory_sdpram
+# 	xpm_memory_spram
+# 	xpm_memory_sprom
+# 	xpm_memory_tdpram
+# End time: 15:45:33 on Nov 05,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:45:33 on Nov 05,2025
+# vcom -93 -work xpm F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_VCOMP.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling package VCOMPONENTS
+# End time: 15:45:33 on Nov 05,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:45:33 on Nov 05,2025
+# vlog -incr -work xil_defaultlib ../../../../logic_analyzer.gen/sources_1/ip/ila/sim/ila.v ../../../../../src/debounce.v ../../../../../src/fpga_top.v ../../../../../src/input_synchronizer.v ../../../../../src/logic_analyzer_core.v ../../../../../src/sample_buffer.v ../../../../../src/test_signal_gen.v ../../../../../src/uart_bram_streamer.v ../../../../../src/uart_tx.v ../../../../../sim/tb_fpga_top_config_commented.v 
+# -- Skipping module ila
+# -- Skipping module debounce
+# -- Skipping module fpga_top
+# -- Skipping module input_synchronizer
+# -- Skipping module logic_analyzer_core
+# -- Skipping module sample_buffer
+# -- Skipping module test_signal_gen
+# -- Skipping module uart_bram_streamer
+# -- Skipping module uart_tx
+# -- Skipping module tb_fpga_top_config
+# 
+# Top level modules:
+# 	tb_fpga_top_config
+# End time: 15:45:34 on Nov 05,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:45:34 on Nov 05,2025
+# vlog -work xil_defaultlib glbl.v 
+# -- Compiling module glbl
+# 
+# Top level modules:
+# 	glbl
+# End time: 15:45:34 on Nov 05,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+INFO: [USF-ModelSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-ModelSim-4] ModelSim::Simulate design
+INFO: [USF-ModelSim-69] Executing 'SIMULATE' step in 'E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/modelsim'
+Program launched (PID=28316)
+launch_simulation
+Command: launch_simulation 
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'ModelSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/modelsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-ModelSim-47] Finding simulator installation...
+INFO: [USF-ModelSim-49] Using simulator executables from 'E:\ModelSim\modelsim_ase\win32aloem'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-modelsim-7] Finding pre-compiled libraries...
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_fpga_top_config' in fileset 'sim_1'...
+INFO: [USF-ModelSim-107] Finding global include files...
+INFO: [USF-ModelSim-108] Finding include directories and verilog header directory paths...
+INFO: [USF-ModelSim-109] Fetching design files from 'sim_1'...
+INFO: [USF-ModelSim-2] ModelSim::Compile design
+INFO: [USF-ModelSim-15] Creating automatic 'do' files...
+INFO: [USF-ModelSim-69] Executing 'COMPILE and ANALYZE' step in 'E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/modelsim'
+Reading E:/ModelSim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.5b
+
+# do {tb_fpga_top_config_compile.do}
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/work".
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/msim".
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/msim/xpm".
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/msim/xil_defaultlib".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap xpm modelsim_lib/msim/xpm 
+# Modifying modelsim.ini
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap xil_defaultlib modelsim_lib/msim/xil_defaultlib 
+# Modifying modelsim.ini
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:49:00 on Nov 05,2025
+# vlog -incr -sv -work xpm F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv 
+# -- Skipping module xpm_cdc_single
+# -- Skipping module xpm_cdc_gray
+# -- Skipping module xpm_cdc_handshake
+# -- Skipping module xpm_cdc_pulse
+# -- Skipping module xpm_cdc_array_single
+# -- Skipping module xpm_cdc_sync_rst
+# -- Skipping module xpm_cdc_async_rst
+# -- Skipping module xpm_cdc_low_latency_handshake
+# -- Skipping module xpm_memory_base
+# -- Skipping module asym_bwe_bb
+# -- Skipping module xpm_memory_dpdistram
+# -- Skipping module xpm_memory_dprom
+# -- Skipping module xpm_memory_sdpram
+# -- Skipping module xpm_memory_spram
+# -- Skipping module xpm_memory_sprom
+# -- Skipping module xpm_memory_tdpram
+# 
+# Top level modules:
+# 	xpm_cdc_gray
+# 	xpm_cdc_handshake
+# 	xpm_cdc_pulse
+# 	xpm_cdc_array_single
+# 	xpm_cdc_sync_rst
+# 	xpm_cdc_async_rst
+# 	xpm_cdc_low_latency_handshake
+# 	xpm_memory_dpdistram
+# 	xpm_memory_dprom
+# 	xpm_memory_sdpram
+# 	xpm_memory_spram
+# 	xpm_memory_sprom
+# 	xpm_memory_tdpram
+# End time: 15:49:01 on Nov 05,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:49:01 on Nov 05,2025
+# vcom -93 -work xpm F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_VCOMP.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling package VCOMPONENTS
+# End time: 15:49:01 on Nov 05,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:49:01 on Nov 05,2025
+# vlog -incr -work xil_defaultlib ../../../../logic_analyzer.gen/sources_1/ip/ila/sim/ila.v ../../../../../src/debounce.v ../../../../../src/fpga_top.v ../../../../../src/input_synchronizer.v ../../../../../src/logic_analyzer_core.v ../../../../../src/sample_buffer.v ../../../../../src/test_signal_gen.v ../../../../../src/uart_bram_streamer.v ../../../../../src/uart_tx.v ../../../../../sim/tb_fpga_top_config_commented.v 
+# -- Skipping module ila
+# -- Skipping module debounce
+# -- Skipping module fpga_top
+# -- Skipping module input_synchronizer
+# -- Skipping module logic_analyzer_core
+# -- Skipping module sample_buffer
+# -- Skipping module test_signal_gen
+# -- Skipping module uart_bram_streamer
+# -- Skipping module uart_tx
+# ** Error: (vlog-7) Failed to open design unit file "../../../../../sim/tb_fpga_top_config_commented.v" in read mode.
+# No such file or directory. (errno = ENOENT)
+# End time: 15:49:01 on Nov 05,2025, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0
+# ** Error: E:/ModelSim/modelsim_ase/win32aloem/vlog failed.
+# Error in macro ./tb_fpga_top_config_compile.do line 36
+# E:/ModelSim/modelsim_ase/win32aloem/vlog failed.
+#     while executing
+# "vlog  -incr -work xil_defaultlib  \
+# "../../../../logic_analyzer.gen/sources_1/ip/ila/sim/ila.v" \
+# "../../../../../src/debounce.v" \
+# "../../../../../sr..."
+ModelSim> INFO: [Common 17-41] Interrupt caught. Command should exit soon.
+run_program: Time (s): cpu = 00:00:01 ; elapsed = 00:00:20 . Memory (MB): peak = 1111.910 ; gain = 0.000
+INFO: [Common 17-344] 'run_program' was cancelled
+INFO: [Vivado 12-5357] 'compile' step aborted
+launch_simulation: Time (s): cpu = 00:00:02 ; elapsed = 00:00:20 . Memory (MB): peak = 1111.910 ; gain = 0.000
+INFO: [Common 17-344] 'launch_simulation' was cancelled
+launch_simulation
+Command: launch_simulation 
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'ModelSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/modelsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-ModelSim-47] Finding simulator installation...
+INFO: [USF-ModelSim-49] Using simulator executables from 'E:\ModelSim\modelsim_ase\win32aloem'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-modelsim-7] Finding pre-compiled libraries...
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_fpga_top_config' in fileset 'sim_1'...
+INFO: [USF-ModelSim-107] Finding global include files...
+INFO: [USF-ModelSim-108] Finding include directories and verilog header directory paths...
+INFO: [USF-ModelSim-109] Fetching design files from 'sim_1'...
+INFO: [USF-ModelSim-2] ModelSim::Compile design
+INFO: [USF-ModelSim-15] Creating automatic 'do' files...
+INFO: [USF-ModelSim-69] Executing 'COMPILE and ANALYZE' step in 'E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.sim/sim_1/behav/modelsim'
+Reading E:/ModelSim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.5b
+
+# do {tb_fpga_top_config_compile.do}
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/work".
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/msim".
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/msim/xpm".
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/msim/xil_defaultlib".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap xpm modelsim_lib/msim/xpm 
+# Modifying modelsim.ini
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap xil_defaultlib modelsim_lib/msim/xil_defaultlib 
+# Modifying modelsim.ini
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:49:55 on Nov 05,2025
+# vlog -incr -sv -work xpm F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv 
+# -- Skipping module xpm_cdc_single
+# -- Skipping module xpm_cdc_gray
+# -- Skipping module xpm_cdc_handshake
+# -- Skipping module xpm_cdc_pulse
+# -- Skipping module xpm_cdc_array_single
+# -- Skipping module xpm_cdc_sync_rst
+# -- Skipping module xpm_cdc_async_rst
+# -- Skipping module xpm_cdc_low_latency_handshake
+# -- Skipping module xpm_memory_base
+# -- Skipping module asym_bwe_bb
+# -- Skipping module xpm_memory_dpdistram
+# -- Skipping module xpm_memory_dprom
+# -- Skipping module xpm_memory_sdpram
+# -- Skipping module xpm_memory_spram
+# -- Skipping module xpm_memory_sprom
+# -- Skipping module xpm_memory_tdpram
+# 
+# Top level modules:
+# 	xpm_cdc_gray
+# 	xpm_cdc_handshake
+# 	xpm_cdc_pulse
+# 	xpm_cdc_array_single
+# 	xpm_cdc_sync_rst
+# 	xpm_cdc_async_rst
+# 	xpm_cdc_low_latency_handshake
+# 	xpm_memory_dpdistram
+# 	xpm_memory_dprom
+# 	xpm_memory_sdpram
+# 	xpm_memory_spram
+# 	xpm_memory_sprom
+# 	xpm_memory_tdpram
+# End time: 15:49:55 on Nov 05,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:49:55 on Nov 05,2025
+# vcom -93 -work xpm F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_VCOMP.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling package VCOMPONENTS
+# End time: 15:49:56 on Nov 05,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:49:56 on Nov 05,2025
+# vlog -incr -work xil_defaultlib ../../../../logic_analyzer.gen/sources_1/ip/ila/sim/ila.v ../../../../../src/debounce.v ../../../../../src/fpga_top.v ../../../../../src/input_synchronizer.v ../../../../../src/logic_analyzer_core.v ../../../../../src/sample_buffer.v ../../../../../src/test_signal_gen.v ../../../../../src/uart_bram_streamer.v ../../../../../src/uart_tx.v ../../../../../sim/tb_fpga_top_config_commented.v 
+# -- Skipping module ila
+# -- Skipping module debounce
+# -- Skipping module fpga_top
+# -- Skipping module input_synchronizer
+# -- Skipping module logic_analyzer_core
+# -- Skipping module sample_buffer
+# -- Skipping module test_signal_gen
+# -- Skipping module uart_bram_streamer
+# -- Skipping module uart_tx
+# ** Error: (vlog-7) Failed to open design unit file "../../../../../sim/tb_fpga_top_config_commented.v" in read mode.
+# No such file or directory. (errno = ENOENT)
+# End time: 15:49:56 on Nov 05,2025, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0
+# ** Error: E:/ModelSim/modelsim_ase/win32aloem/vlog failed.
+# Error in macro ./tb_fpga_top_config_compile.do line 36
+# E:/ModelSim/modelsim_ase/win32aloem/vlog failed.
+#     while executing
+# "vlog  -incr -work xil_defaultlib  \
+# "../../../../logic_analyzer.gen/sources_1/ip/ila/sim/ila.v" \
+# "../../../../../src/debounce.v" \
+# "../../../../../sr..."
+ModelSim> INFO: [Common 17-41] Interrupt caught. Command should exit soon.
+run_program: Time (s): cpu = 00:00:01 ; elapsed = 00:00:22 . Memory (MB): peak = 1111.910 ; gain = 0.000
+INFO: [Common 17-344] 'run_program' was cancelled
+INFO: [Vivado 12-5357] 'compile' step aborted
+launch_simulation: Time (s): cpu = 00:00:01 ; elapsed = 00:00:22 . Memory (MB): peak = 1111.910 ; gain = 0.000
+INFO: [Common 17-344] 'launch_simulation' was cancelled
+exit
+INFO: [Common 17-206] Exiting Vivado at Wed Nov  5 15:59:33 2025...

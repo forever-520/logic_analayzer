@@ -1,6 +1,7 @@
 # do {tb_fpga_top_config_compile.do}
 # ** Warning: (vlib-34) Library already exists at "modelsim_lib/work".
 # ** Warning: (vlib-34) Library already exists at "modelsim_lib/msim".
+# ** Warning: (vlib-34) Library already exists at "modelsim_lib/msim/xpm".
 # ** Warning: (vlib-34) Library already exists at "modelsim_lib/msim/xil_defaultlib".
 # Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
 # vmap xpm modelsim_lib/msim/xpm 
@@ -9,33 +10,24 @@
 # vmap xil_defaultlib modelsim_lib/msim/xil_defaultlib 
 # Modifying modelsim.ini
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 02:49:56 on Nov 04,2025
+# Start time: 22:06:11 on Nov 05,2025
 # vlog -incr -sv -work xpm F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv 
-# -- Compiling module xpm_cdc_single
-# ** Warning: F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv(268): (vlog-2186) SystemVerilog testbench feature
-# (randomization, coverage or assertion) detected in the design.
-# These features are only supported in Questasim.
-# ** Warning: F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv(266): (vlog-2186) SystemVerilog testbench feature
-# (randomization, coverage or assertion) detected in the design.
-# These features are only supported in Questasim.
-# ** Warning: F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv(153): (vlog-2186) SystemVerilog testbench feature
-# (randomization, coverage or assertion) detected in the design.
-# These features are only supported in Questasim.
-# -- Compiling module xpm_cdc_gray
-# -- Compiling module xpm_cdc_handshake
-# -- Compiling module xpm_cdc_pulse
-# -- Compiling module xpm_cdc_array_single
-# -- Compiling module xpm_cdc_sync_rst
-# -- Compiling module xpm_cdc_async_rst
-# -- Compiling module xpm_cdc_low_latency_handshake
-# -- Compiling module xpm_memory_base
-# -- Compiling module asym_bwe_bb
-# -- Compiling module xpm_memory_dpdistram
-# -- Compiling module xpm_memory_dprom
-# -- Compiling module xpm_memory_sdpram
-# -- Compiling module xpm_memory_spram
-# -- Compiling module xpm_memory_sprom
-# -- Compiling module xpm_memory_tdpram
+# -- Skipping module xpm_cdc_single
+# -- Skipping module xpm_cdc_gray
+# -- Skipping module xpm_cdc_handshake
+# -- Skipping module xpm_cdc_pulse
+# -- Skipping module xpm_cdc_array_single
+# -- Skipping module xpm_cdc_sync_rst
+# -- Skipping module xpm_cdc_async_rst
+# -- Skipping module xpm_cdc_low_latency_handshake
+# -- Skipping module xpm_memory_base
+# -- Skipping module asym_bwe_bb
+# -- Skipping module xpm_memory_dpdistram
+# -- Skipping module xpm_memory_dprom
+# -- Skipping module xpm_memory_sdpram
+# -- Skipping module xpm_memory_spram
+# -- Skipping module xpm_memory_sprom
+# -- Skipping module xpm_memory_tdpram
 # 
 # Top level modules:
 # 	xpm_cdc_gray
@@ -51,39 +43,41 @@
 # 	xpm_memory_spram
 # 	xpm_memory_sprom
 # 	xpm_memory_tdpram
-# End time: 02:49:56 on Nov 04,2025, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 3
+# End time: 22:06:11 on Nov 05,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
 # Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 02:49:56 on Nov 04,2025
+# Start time: 22:06:11 on Nov 05,2025
 # vcom -93 -work xpm F:/Xilinx/Vivado/2020.2/data/ip/xpm/xpm_VCOMP.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Compiling package VCOMPONENTS
-# End time: 02:49:57 on Nov 04,2025, Elapsed time: 0:00:01
+# End time: 22:06:11 on Nov 05,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 02:49:57 on Nov 04,2025
-# vlog -incr -work xil_defaultlib ../../../../logic_analyzer.gen/sources_1/ip/ila/sim/ila.v ../../../../../src/debounce.v ../../../../../src/fpga_top.v ../../../../../src/input_synchronizer.v ../../../../../src/logic_analyzer_core.v ../../../../../src/sample_buffer.v ../../../../../src/test_signal_gen.v ../../../../../sim/tb_fpga_top_config_commented.v 
-# -- Compiling module ila
-# -- Compiling module debounce
-# -- Compiling module fpga_top
-# -- Compiling module input_synchronizer
-# -- Compiling module logic_analyzer_core
-# -- Compiling module sample_buffer
-# -- Compiling module test_signal_gen
+# Start time: 22:06:11 on Nov 05,2025
+# vlog -incr -work xil_defaultlib ../../../../logic_analyzer.gen/sources_1/ip/ila/sim/ila.v ../../../../../src/debounce.v ../../../../../src/fpga_top.v ../../../../../src/input_synchronizer.v ../../../../../src/logic_analyzer_core.v ../../../../../src/sample_buffer.v ../../../../../src/test_signal_gen.v ../../../../../src/uart_bram_streamer.v ../../../../../src/uart_tx.v ../../../../../sim/tb_fpga_top_config.v 
+# -- Skipping module ila
+# -- Skipping module debounce
+# -- Skipping module fpga_top
+# -- Skipping module input_synchronizer
+# -- Skipping module logic_analyzer_core
+# -- Skipping module sample_buffer
+# -- Skipping module test_signal_gen
+# -- Skipping module uart_bram_streamer
+# -- Skipping module uart_tx
 # -- Compiling module tb_fpga_top_config
 # 
 # Top level modules:
 # 	tb_fpga_top_config
-# End time: 02:49:57 on Nov 04,2025, Elapsed time: 0:00:00
+# End time: 22:06:11 on Nov 05,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 02:49:57 on Nov 04,2025
+# Start time: 22:06:11 on Nov 05,2025
 # vlog -work xil_defaultlib glbl.v 
 # -- Compiling module glbl
 # 
 # Top level modules:
 # 	glbl
-# End time: 02:49:57 on Nov 04,2025, Elapsed time: 0:00:00
+# End time: 22:06:11 on Nov 05,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0

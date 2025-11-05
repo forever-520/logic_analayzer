@@ -2,8 +2,8 @@
 # Vivado v2020.2 (64-bit)
 # SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
 # IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
-# Start of session at: Fri Oct 31 00:13:43 2025
-# Process ID: 29904
+# Start of session at: Wed Nov  5 23:53:52 2025
+# Process ID: 19844
 # Current directory: E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.runs/synth_1
 # Command line: vivado.exe -log fpga_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source fpga_top.tcl
 # Log file: E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.runs/synth_1/fpga_top.vds
@@ -17,15 +17,15 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z010
 INFO: [Device 21-403] Loading part xc7z010clg400-2
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 24136
+INFO: [Synth 8-7075] Helper process launched with PID 21412
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1129.801 ; gain = 22.730
+Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1129.797 ; gain = 19.203
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-6157] synthesizing module 'fpga_top' [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:26]
+INFO: [Synth 8-6157] synthesizing module 'fpga_top' [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:23]
 	Parameter DEBOUNCE_CNT_MAX bound to: 999999 - type: integer 
 INFO: [Synth 8-6157] synthesizing module 'input_synchronizer' [E:/fpga_class/vivado/logic_analyzer/src/input_synchronizer.v:18]
 	Parameter DATA_WIDTH bound to: 8 - type: integer 
-	Parameter SYNC_STAGES bound to: 2 - type: integer 
+	Parameter SYNC_STAGES bound to: 3 - type: integer 
 INFO: [Synth 8-6155] done synthesizing module 'input_synchronizer' (1#1) [E:/fpga_class/vivado/logic_analyzer/src/input_synchronizer.v:18]
 INFO: [Synth 8-6157] synthesizing module 'debounce' [E:/fpga_class/vivado/logic_analyzer/src/debounce.v:16]
 	Parameter CNT_MAX bound to: 999999 - type: integer 
@@ -39,39 +39,64 @@ INFO: [Synth 8-6157] synthesizing module 'logic_analyzer_core' [E:/fpga_class/vi
 	Parameter POST_CAPTURE bound to: 3'b010 
 	Parameter DONE bound to: 3'b011 
 INFO: [Synth 8-6155] done synthesizing module 'logic_analyzer_core' (3#1) [E:/fpga_class/vivado/logic_analyzer/src/logic_analyzer_core.v:30]
-WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:223]
 INFO: [Synth 8-6157] synthesizing module 'sample_buffer' [E:/fpga_class/vivado/logic_analyzer/src/sample_buffer.v:16]
 	Parameter DATA_WIDTH bound to: 8 - type: integer 
 	Parameter ADDR_WIDTH bound to: 11 - type: integer 
 INFO: [Synth 8-6155] done synthesizing module 'sample_buffer' (4#1) [E:/fpga_class/vivado/logic_analyzer/src/sample_buffer.v:16]
+INFO: [Synth 8-6157] synthesizing module 'uart_bram_streamer' [E:/fpga_class/vivado/logic_analyzer/src/uart_bram_streamer.v:27]
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter ADDR_WIDTH bound to: 11 - type: integer 
+	Parameter CLK_FREQ bound to: 50000000 - type: integer 
+	Parameter BAUD_RATE bound to: 115200 - type: integer 
+	Parameter DEPTH bound to: 2048 - type: integer 
+	Parameter LEN16 bound to: 16'b0000100000000000 
+	Parameter DEPTH_M1 bound to: 11'b11111111111 
+	Parameter S_IDLE bound to: 3'b000 
+	Parameter S_HDR bound to: 3'b001 
+	Parameter S_PREF bound to: 3'b010 
+	Parameter S_DATA bound to: 3'b011 
+	Parameter S_DONE bound to: 3'b100 
+INFO: [Synth 8-6157] synthesizing module 'uart_tx' [E:/fpga_class/vivado/logic_analyzer/src/uart_tx.v:37]
+	Parameter CLK_FREQ bound to: 50000000 - type: integer 
+	Parameter BAUD_RATE bound to: 115200 - type: integer 
+	Parameter BAUD_DIV bound to: 434 - type: integer 
+	Parameter BAUD_CNT_W bound to: 9 - type: integer 
+	Parameter S_IDLE bound to: 2'b00 
+	Parameter S_START bound to: 2'b01 
+	Parameter S_DATA bound to: 2'b10 
+	Parameter S_STOP bound to: 2'b11 
+INFO: [Synth 8-226] default block is never used [E:/fpga_class/vivado/logic_analyzer/src/uart_tx.v:110]
+INFO: [Synth 8-6155] done synthesizing module 'uart_tx' (5#1) [E:/fpga_class/vivado/logic_analyzer/src/uart_tx.v:37]
+INFO: [Synth 8-6155] done synthesizing module 'uart_bram_streamer' (6#1) [E:/fpga_class/vivado/logic_analyzer/src/uart_bram_streamer.v:27]
 INFO: [Synth 8-6157] synthesizing module 'test_signal_gen' [E:/fpga_class/vivado/logic_analyzer/src/test_signal_gen.v:16]
 	Parameter DATA_WIDTH bound to: 8 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'test_signal_gen' (5#1) [E:/fpga_class/vivado/logic_analyzer/src/test_signal_gen.v:16]
-WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:247]
-INFO: [Synth 8-6157] synthesizing module 'ila' [E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.runs/synth_1/.Xil/Vivado-29904-forever/realtime/ila_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'ila' (6#1) [E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.runs/synth_1/.Xil/Vivado-29904-forever/realtime/ila_stub.v:6]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_ila_la'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:247]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_la_core'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:199]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_sample_buffer'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:223]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_debounce_trigger'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:167]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_debounce_channel'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:174]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_debounce_type'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:181]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_debounce_mode'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:188]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_test_gen'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:236]
-INFO: [Synth 8-6155] done synthesizing module 'fpga_top' (7#1) [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:26]
+INFO: [Synth 8-6155] done synthesizing module 'test_signal_gen' (7#1) [E:/fpga_class/vivado/logic_analyzer/src/test_signal_gen.v:16]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:319]
+INFO: [Synth 8-6157] synthesizing module 'ila' [E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.runs/synth_1/.Xil/Vivado-19844-forever/realtime/ila_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'ila' (8#1) [E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.runs/synth_1/.Xil/Vivado-19844-forever/realtime/ila_stub.v:6]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_ila_la'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:319]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_la_core'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:237]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_sample_buffer'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:262]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_uart_streamer'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:278]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_debounce_trigger'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:205]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_debounce_channel'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:212]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_debounce_type'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:219]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_debounce_mode'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:226]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_test_gen'. This will prevent further optimization [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:308]
+INFO: [Synth 8-6155] done synthesizing module 'fpga_top' (9#1) [E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v:23]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1189.777 ; gain = 82.707
+Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1193.117 ; gain = 82.523
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1189.777 ; gain = 82.707
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1193.117 ; gain = 82.523
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1189.777 ; gain = 82.707
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1193.117 ; gain = 82.523
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1189.777 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1193.117 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -84,72 +109,101 @@ INFO: [Project 1-236] Implementation specific constraints were found while readi
 Resolution: To avoid this warning, move constraints listed in [.Xil/fpga_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1309.426 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1315.438 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1309.426 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1315.438 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1309.426 ; gain = 202.355
+Finished Constraint Validation : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 1315.438 ; gain = 204.844
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7z010clg400-2
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1309.426 ; gain = 202.355
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1315.438 ; gain = 204.844
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 Applied set_property KEEP_HIERARCHY = SOFT for u_ila_la. (constraint file  auto generated constraint).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1309.426 ; gain = 202.355
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1315.438 ; gain = 204.844
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'logic_analyzer_core'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'uart_tx'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'uart_bram_streamer'
 ---------------------------------------------------------------------------------------------------
                    State |                     New Encoding |                Previous Encoding 
 ---------------------------------------------------------------------------------------------------
-                    IDLE |                              000 |                              000
-            WAIT_TRIGGER |                              001 |                              001
-            POST_CAPTURE |                              010 |                              010
-                    DONE |                              011 |                              011
-                  iSTATE |                              100 |                              111
-*
+                    IDLE |                               00 |                              000
+            WAIT_TRIGGER |                               01 |                              001
+            POST_CAPTURE |                               10 |                              010
+                    DONE |                               11 |                              011
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'logic_analyzer_core'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                  S_IDLE |                               00 |                               00
+                 S_START |                               01 |                               01
+                  S_DATA |                               10 |                               10
+                  S_STOP |                               11 |                               11
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'uart_tx'
+INFO: [Synth 8-6159] Found Keep on FSM register 'state_reg' in module 'uart_bram_streamer', re-encoding will not be performed
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+*
+                  S_IDLE |                              000 |                              000
+                   S_HDR |                              001 |                              001
+                  S_PREF |                              010 |                              010
+                  S_DATA |                              011 |                              011
+                  S_DONE |                              100 |                              100
+---------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1309.426 ; gain = 202.355
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1315.438 ; gain = 204.844
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Adders : 
-	   2 Input   11 Bit       Adders := 2     
-	   2 Input    3 Bit       Adders := 1     
+	   2 Input   11 Bit       Adders := 4     
+	   2 Input    9 Bit       Adders := 1     
+	   2 Input    3 Bit       Adders := 3     
 	   2 Input    2 Bit       Adders := 1     
 +---XORs : 
 	   4 Input      1 Bit         XORs := 1     
 +---Registers : 
-	               11 Bit    Registers := 3     
-	                8 Bit    Registers := 7     
-	                3 Bit    Registers := 9     
+	               11 Bit    Registers := 6     
+	                9 Bit    Registers := 1     
+	                8 Bit    Registers := 11    
+	                3 Bit    Registers := 11    
 	                2 Bit    Registers := 1     
-	                1 Bit    Registers := 17    
+	                1 Bit    Registers := 26    
 +---RAMs : 
 	              16K Bit	(2048 X 8 bit)          RAMs := 1     
 +---Muxes : 
-	   5 Input   11 Bit        Muxes := 2     
-	   5 Input    8 Bit        Muxes := 2     
-	   2 Input    8 Bit        Muxes := 3     
-	   5 Input    3 Bit        Muxes := 1     
-	   2 Input    3 Bit        Muxes := 4     
-	   6 Input    3 Bit        Muxes := 6     
-	   2 Input    2 Bit        Muxes := 1     
-	   2 Input    1 Bit        Muxes := 32    
-	   3 Input    1 Bit        Muxes := 9     
-	   5 Input    1 Bit        Muxes := 12    
+	   4 Input   11 Bit        Muxes := 2     
+	   6 Input   11 Bit        Muxes := 3     
+	   2 Input   11 Bit        Muxes := 3     
+	   2 Input    9 Bit        Muxes := 1     
+	   2 Input    8 Bit        Muxes := 9     
+	   4 Input    8 Bit        Muxes := 2     
+	   6 Input    8 Bit        Muxes := 2     
+	   5 Input    8 Bit        Muxes := 1     
+	   4 Input    3 Bit        Muxes := 1     
+	   6 Input    3 Bit        Muxes := 8     
+	   2 Input    3 Bit        Muxes := 7     
+	   4 Input    2 Bit        Muxes := 2     
+	   2 Input    2 Bit        Muxes := 5     
+	   2 Input    1 Bit        Muxes := 45    
+	   3 Input    1 Bit        Muxes := 1     
+	   4 Input    1 Bit        Muxes := 17    
+	   6 Input    1 Bit        Muxes := 11    
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -166,25 +220,55 @@ Finished Part Resource Summary
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 1309.426 ; gain = 202.355
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1315.438 ; gain = 204.844
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Preliminary Mapping	Report (see note below)
++----------------+------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name     | RTL Object | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++----------------+------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|u_sample_buffer | ram_reg    | 2 K x 8(NO_CHANGE)     | W |   | 2 K x 8(WRITE_FIRST)   |   | R | Port A and B     | 1      | 0      | 
++----------------+------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+Note: The table above is a preliminary report that shows the Block RAMs at the current stage of the synthesis flow. Some Block RAMs may be reimplemented as non Block RAM primitives later in the synthesis flow. Multiple instantiated Block RAMs are reported only once. 
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1309.426 ; gain = 202.355
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 1315.438 ; gain = 204.844
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1309.426 ; gain = 202.355
+Finished Timing Optimization : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 1328.160 ; gain = 217.566
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Final Mapping	Report
++----------------+------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name     | RTL Object | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++----------------+------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|u_sample_buffer | ram_reg    | 2 K x 8(NO_CHANGE)     | W |   | 2 K x 8(WRITE_FIRST)   |   | R | Port A and B     | 1      | 0      | 
++----------------+------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
+INFO: [Synth 8-7052] The timing for the instance u_sample_buffer/ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 1309.992 ; gain = 202.922
+Finished Technology Mapping : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 1328.160 ; gain = 217.566
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -202,37 +286,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1314.773 ; gain = 207.703
+Finished IO Insertion : Time (s): cpu = 00:00:23 ; elapsed = 00:00:25 . Memory (MB): peak = 1328.160 ; gain = 217.566
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1314.773 ; gain = 207.703
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:23 ; elapsed = 00:00:25 . Memory (MB): peak = 1328.160 ; gain = 217.566
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1314.773 ; gain = 207.703
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:23 ; elapsed = 00:00:25 . Memory (MB): peak = 1328.160 ; gain = 217.566
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1314.773 ; gain = 207.703
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:23 ; elapsed = 00:00:25 . Memory (MB): peak = 1328.160 ; gain = 217.566
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1314.773 ; gain = 207.703
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:23 ; elapsed = 00:00:25 . Memory (MB): peak = 1328.160 ; gain = 217.566
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1314.773 ; gain = 207.703
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:23 ; elapsed = 00:00:25 . Memory (MB): peak = 1328.160 ; gain = 217.566
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -246,45 +330,47 @@ Report BlackBoxes:
 +------+--------------+----------+
 
 Report Cell Usage: 
-+------+-------+------+
-|      |Cell   |Count |
-+------+-------+------+
-|1     |ila    |     1|
-|2     |BUFG   |     1|
-|3     |CARRY4 |    23|
-|4     |LUT1   |    20|
-|5     |LUT2   |    96|
-|6     |LUT3   |    20|
-|7     |LUT4   |    45|
-|8     |LUT5   |    43|
-|9     |LUT6   |    78|
-|10    |MUXF7  |     3|
-|11    |FDCE   |   211|
-|12    |FDPE   |     8|
-|13    |IBUF   |    17|
-+------+-------+------+
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |ila      |     1|
+|2     |BUFG     |     1|
+|3     |CARRY4   |    23|
+|4     |LUT1     |    25|
+|5     |LUT2     |   105|
+|6     |LUT3     |    44|
+|7     |LUT4     |    61|
+|8     |LUT5     |    86|
+|9     |LUT6     |   115|
+|10    |MUXF7    |     4|
+|11    |RAMB18E1 |     1|
+|12    |FDCE     |   302|
+|13    |FDPE     |     9|
+|14    |IBUF     |    17|
+|15    |OBUF     |     1|
++------+---------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1314.773 ; gain = 207.703
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:23 ; elapsed = 00:00:25 . Memory (MB): peak = 1328.160 ; gain = 217.566
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:11 ; elapsed = 00:00:16 . Memory (MB): peak = 1314.773 ; gain = 88.055
-Synthesis Optimization Complete : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 1314.773 ; gain = 207.703
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:15 ; elapsed = 00:00:23 . Memory (MB): peak = 1328.160 ; gain = 95.246
+Synthesis Optimization Complete : Time (s): cpu = 00:00:23 ; elapsed = 00:00:25 . Memory (MB): peak = 1328.160 ; gain = 217.566
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1314.773 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 26 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1328.160 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 28 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1330.234 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1335.191 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
 INFO: [Common 17-83] Releasing license: Synthesis
-39 Infos, 2 Warnings, 0 Critical Warnings and 0 Errors encountered.
+50 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 1330.234 ; gain = 223.164
+synth_design: Time (s): cpu = 00:00:27 ; elapsed = 00:00:30 . Memory (MB): peak = 1335.191 ; gain = 224.598
 INFO: [Common 17-600] The following parameters have non-default value.
 tcl.collectionResultDisplayLimit
 INFO: [Common 17-1381] The checkpoint 'E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.runs/synth_1/fpga_top.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file fpga_top_utilization_synth.rpt -pb fpga_top_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Fri Oct 31 00:14:11 2025...
+INFO: [Common 17-206] Exiting Vivado at Wed Nov  5 23:54:28 2025...

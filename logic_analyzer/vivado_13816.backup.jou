@@ -1,0 +1,29 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Wed Nov  5 16:53:43 2025
+# Process ID: 13816
+# Current directory: E:/fpga_class/vivado/logic_analyzer/logic_analyzer
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent23496 E:\fpga_class\vivado\logic_analyzer\logic_analyzer\logic_analyzer.xpr
+# Log file: E:/fpga_class/vivado/logic_analyzer/logic_analyzer/vivado.log
+# Journal file: E:/fpga_class/vivado/logic_analyzer/logic_analyzer\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.xpr
+update_compile_order -fileset sources_1
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+wait_on_run synth_1
+launch_runs impl_1 -jobs 8
+wait_on_run impl_1
+launch_simulation
+launch_simulation
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+launch_simulation

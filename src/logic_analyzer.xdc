@@ -56,6 +56,14 @@ set_property PACKAGE_PIN P16 [get_ports {sw_test_pattern[1]}]
 set_property PACKAGE_PIN T19 [get_ports {sw_test_pattern[0]}]
 
 set_property PACKAGE_PIN P15 [get_ports sw_test_enable]
+
+## UART TX (for data export to PC) -----------------------------------------
+# Connect to CH340 RX pin or FPGA board's UART TX pin
+# Adjust pin number according to your board schematic
+set_property PACKAGE_PIN V18 [get_ports uart_tx]
+set_property IOSTANDARD LVCMOS33 [get_ports uart_tx]
+
+## ILA Debug Hub Configuration ----------------------------------------------
 set_property C_CLK_INPUT_FREQ_HZ 300000000 [get_debug_cores dbg_hub]
 set_property C_ENABLE_CLK_DIVIDER false [get_debug_cores dbg_hub]
 set_property C_USER_SCAN_CHAIN 1 [get_debug_cores dbg_hub]

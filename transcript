@@ -1,0 +1,45 @@
+# vsim -c work.tb_fpga_top_config -do "run -all; quit -f" 
+# Start time: 12:59:07 on Nov 05,2025
+# Loading work.tb_fpga_top_config
+# Loading work.fpga_top
+# Loading work.input_synchronizer
+# Loading work.debounce
+# Loading work.logic_analyzer_core
+# Loading work.sample_buffer
+# Loading work.uart_bram_streamer
+# Loading work.uart_tx
+# Loading work.test_signal_gen
+# ** Warning: (vsim-3017) sim/tb_fpga_top_config.v(42): [TFMPC] - Too few port connections. Expected 13, found 10.
+#    Time: 0 ps  Iteration: 0  Instance: /tb_fpga_top_config/u_dut File: src/fpga_top.v
+# ** Warning: (vsim-3722) sim/tb_fpga_top_config.v(42): [TFMPC] - Missing connection for port 'led_capturing'.
+# ** Warning: (vsim-3722) sim/tb_fpga_top_config.v(42): [TFMPC] - Missing connection for port 'led_triggered'.
+# ** Warning: (vsim-3722) sim/tb_fpga_top_config.v(42): [TFMPC] - Missing connection for port 'led_done'.
+# run -all
+# [TB] Logging to uart_dump.log
+# =================================================
+# Current Config | Selected CH: 0 | Trigger Mode: 0
+# CH | Code
+#  0 | 101 <- Selected
+#  1 | 000            
+#  2 | 000            
+#  3 | 000            
+#  4 | 000            
+#  5 | 000            
+#  6 | 000            
+#  7 | 000            
+# =================================================
+# [TB] Observing internal signals (pattern=1)...
+# [TB] UART direct monitor launched (internal tx_valid/tx_data)...
+# [TB] Capture started, waiting for completion...
+# [TB] capture_done=1, trigger_index=1
+# [TB] Waiting for UART streamer busy...
+# [TB] UART streamer busy=1 (transmitting) at t=200800000
+# [TB] UART streamer busy=0 (done) at t=89230570000
+# [TB] UART captured 2054 bytes (>=2054)
+# [TB] Header OK: 55 AA LEN=2048(0x0800) TRIG=1
+# [TB] Frame Length correct: 2048 bytes
+# [TB] Simulation finished.
+# ** Note: $finish    : sim/tb_fpga_top_config.v(270)
+#    Time: 89281570 ns  Iteration: 0  Instance: /tb_fpga_top_config
+# End time: 12:59:30 on Nov 05,2025, Elapsed time: 0:00:23
+# Errors: 0, Warnings: 4

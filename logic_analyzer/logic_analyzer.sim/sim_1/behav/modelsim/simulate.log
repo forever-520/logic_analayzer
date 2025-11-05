@@ -1,170 +1,55 @@
 # do {tb_fpga_top_config_simulate.do}
 # vsim -voptargs=""+acc"" -L xil_defaultlib -L xpm -L unisims_ver -L unimacro_ver -L secureip -lib xil_defaultlib xil_defaultlib.tb_fpga_top_config xil_defaultlib.glbl 
-# Start time: 02:50:05 on Nov 04,2025
+# Start time: 22:06:14 on Nov 05,2025
 # Loading xil_defaultlib.tb_fpga_top_config
 # Loading xil_defaultlib.fpga_top
 # Loading xil_defaultlib.input_synchronizer
 # Loading xil_defaultlib.debounce
 # Loading xil_defaultlib.logic_analyzer_core
 # Loading xil_defaultlib.sample_buffer
+# Loading xil_defaultlib.uart_bram_streamer
+# Loading xil_defaultlib.uart_tx
 # Loading xil_defaultlib.test_signal_gen
 # Loading xil_defaultlib.ila
 # Loading xil_defaultlib.glbl
+# ** Warning: (vsim-3017) ../../../../../sim/tb_fpga_top_config.v(42): [TFMPC] - Too few port connections. Expected 13, found 10.
+#    Time: 0 ps  Iteration: 0  Instance: /tb_fpga_top_config/u_dut File: ../../../../../src/fpga_top.v
+# ** Warning: (vsim-3722) ../../../../../sim/tb_fpga_top_config.v(42): [TFMPC] - Missing connection for port 'led_capturing'.
+# ** Warning: (vsim-3722) ../../../../../sim/tb_fpga_top_config.v(42): [TFMPC] - Missing connection for port 'led_triggered'.
+# ** Warning: (vsim-3722) ../../../../../sim/tb_fpga_top_config.v(42): [TFMPC] - Missing connection for port 'led_done'.
 # 1
 # 1
 # .main_pane.wave.interior.cs.body.pw.wf
 # .main_pane.structure.interior.cs.body.struct
 # .main_pane.objects.interior.cs.body.tree
-# 
-# 
-# [Test 1] OR Mode (Independent Trigger) Verification
-# -------------------------------------------------
-# --> Configuring CH0 to 001...
-#     Channel 0 selected.
-#     Current state: 000, Target: 001, Need 1 presses.
+# [TB] Logging to uart_dump.log
 run -all
-#     Configuration complete.
-# --> Configuring CH1 to 011...
-#     Channel 1 selected.
-#     Current state: 000, Target: 011, Need 2 presses.
-#     Configuration complete.
 # =================================================
-# Current Config | Selected CH: 1 | Trigger Mode:      OR (Independent)
-# -------------------------------------------------
-# CH | Code | Mode      | Status
-# ---|------|-----------|----------
-#  0 | 001  | RisingEdge|
-#  1 | 011  | FallingEdg| <- Selected
-#  2 | 000  | Disabled  |
-#  3 | 000  | Disabled  |
-#  4 | 000  | Disabled  |
-#  5 | 000  | Disabled  |
-#  6 | 000  | Disabled  |
-#  7 | 000  | Disabled  |
+# Current Config | Selected CH: 0 | Trigger Mode: 0
+# CH | Code
+#  0 | 101 <- Selected
+#  1 | 000            
+#  2 | 000            
+#  3 | 000            
+#  4 | 000            
+#  5 | 000            
+#  6 | 000            
+#  7 | 000            
 # =================================================
-# Starting capture (OR mode)...
-# 
-# Generating rising edge on CH0. System should trigger.
-# OR Mode Trigger Successful! Capture done.
-# 
-# 
-# [Test 2] AND Mode (Combined Trigger) Verification
-# -------------------------------------------------
-# --> Configuring CH0 to 001...
-#     Channel 0 selected.
-#     Current state: 000, Target: 001, Need 1 presses.
-#     Configuration complete.
-# --> Configuring CH1 to 011...
-#     Channel 1 selected.
-#     Current state: 000, Target: 011, Need 2 presses.
-#     Configuration complete.
-# Switching to AND mode (AND-ACC)...
-# =================================================
-# Current Config | Selected CH: 1 | Trigger Mode:  AND-ACC (Accumulate)
-# -------------------------------------------------
-# CH | Code | Mode      | Status
-# ---|------|-----------|----------
-#  0 | 001  | RisingEdge|
-#  1 | 011  | FallingEdg| <- Selected
-#  2 | 000  | Disabled  |
-#  3 | 000  | Disabled  |
-#  4 | 000  | Disabled  |
-#  5 | 000  | Disabled  |
-#  6 | 000  | Disabled  |
-#  7 | 000  | Disabled  |
-# =================================================
-# Starting capture (AND mode)...
-# 
-# Generating rising edge on CH0 only. Should NOT trigger.
-# Status: capturing=1, triggered=0, done=0
-# 
-# Generating falling edge on CH1. Should trigger now.
-# AND Mode Trigger Successful! Capture done.
-# 
-# 
-# [Test 3] Level Trigger (OR and AND)
-# -------------------------------------------------
-# --> Configuring CH0 to 101...
-#     Channel 0 selected.
-#     Current state: 000, Target: 101, Need 3 presses.
-#     Configuration complete.
-# --> Configuring CH1 to 111...
-#     Channel 1 selected.
-#     Current state: 000, Target: 111, Need 4 presses.
-#     Configuration complete.
-# Switching to OR mode...
-# =================================================
-# Current Config | Selected CH: 1 | Trigger Mode:      OR (Independent)
-# -------------------------------------------------
-# CH | Code | Mode      | Status
-# ---|------|-----------|----------
-#  0 | 101  | HighLevel |
-#  1 | 111  | LowLevel  | <- Selected
-#  2 | 000  | Disabled  |
-#  3 | 000  | Disabled  |
-#  4 | 000  | Disabled  |
-#  5 | 000  | Disabled  |
-#  6 | 000  | Disabled  |
-#  7 | 000  | Disabled  |
-# =================================================
-# Starting capture (Level OR mode)...
-# Level OR Trigger Successful!
-# Switching to AND mode...
-# =================================================
-# Current Config | Selected CH: 1 | Trigger Mode:  AND-ACC (Accumulate)
-# -------------------------------------------------
-# CH | Code | Mode      | Status
-# ---|------|-----------|----------
-#  0 | 101  | HighLevel |
-#  1 | 111  | LowLevel  | <- Selected
-#  2 | 000  | Disabled  |
-#  3 | 000  | Disabled  |
-#  4 | 000  | Disabled  |
-#  5 | 000  | Disabled  |
-#  6 | 000  | Disabled  |
-#  7 | 000  | Disabled  |
-# =================================================
-# Starting capture (Level AND mode)...
-# Level AND Trigger Successful!
-# 
-# 
-# [Test 4] AND-COIN Mode (Coincident Trigger) Verification
-# -------------------------------------------------
-# --> Configuring CH0 to 001...
-#     Channel 0 selected.
-#     Current state: 000, Target: 001, Need 1 presses.
-#     Configuration complete.
-# --> Configuring CH1 to 001...
-#     Channel 1 selected.
-#     Current state: 000, Target: 001, Need 1 presses.
-#     Configuration complete.
-# =================================================
-# Current Config | Selected CH: 1 | Trigger Mode: AND-COIN (Coincident)
-# -------------------------------------------------
-# CH | Code | Mode      | Status
-# ---|------|-----------|----------
-#  0 | 001  | RisingEdge|
-#  1 | 001  | RisingEdge| <- Selected
-#  2 | 000  | Disabled  |
-#  3 | 000  | Disabled  |
-#  4 | 000  | Disabled  |
-#  5 | 000  | Disabled  |
-#  6 | 000  | Disabled  |
-#  7 | 000  | Disabled  |
-# =================================================
-# Starting capture (AND-COIN mode)...
-# 
-# CH0 rising only -> should NOT trigger.
-# CH1 rising later -> should still NOT trigger.
-# Coincident rising on CH0 & CH1 -> should TRIGGER.
-# AND-COIN Mode Trigger Successful! Capture done. Trigger index=310
-# 
-# ========================================
-# All Tests Completed Successfully
-# ========================================
-# ** Note: $finish    : ../../../../../sim/tb_fpga_top_config_commented.v(390)
-#    Time: 1619250 ns  Iteration: 0  Instance: /tb_fpga_top_config
+# [TB] Observing internal signals (pattern=1)...
+# [TB] UART direct monitor launched (internal tx_valid/tx_data)...
+# [TB] Capture started, waiting for completion...
+# [TB] capture_done=1, trigger_index=1
+# [TB] Waiting for UART streamer busy...
+# [TB] UART streamer busy=1 (transmitting) at t=200800000
+# [TB] UART streamer busy=0 (done) at t=89230570000
+# [TB] UART captured 2054 bytes (>=2054)
+# [TB] Header OK: 55 AA LEN=2048(0x0800) TRIG=1
+# [TB] Frame Length correct: 2048 bytes
+# [TB] Simulation finished.
+# ** Note: $finish    : ../../../../../sim/tb_fpga_top_config.v(270)
+#    Time: 89281570 ns  Iteration: 0  Instance: /tb_fpga_top_config
 # 1
-# Break in Module tb_fpga_top_config at ../../../../../sim/tb_fpga_top_config_commented.v line 390
-# End time: 02:50:43 on Nov 04,2025, Elapsed time: 0:00:38
-# Errors: 0, Warnings: 0
+# Break in NamedBeginStat main at ../../../../../sim/tb_fpga_top_config.v line 270
+# End time: 22:51:45 on Nov 05,2025, Elapsed time: 0:45:31
+# Errors: 0, Warnings: 4
