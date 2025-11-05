@@ -15,13 +15,13 @@ import numpy as np
 # ========== 配置 ==========
 SERIAL_PORT = 'COM11'  # 根据实际串口修改
 BAUD_RATE = 115200
-FRAME_HEADER = b'\x55\x00'  # 帧头：0x55 0xAA
+FRAME_HEADER = b'\x55\x00'  # 帧头：0x55 0x00 (实际FPGA发送的)
 FRAME_SIZE = 2048
 CHANNEL_COUNT = 8
 
 def receive_one_frame(ser):
     """接收一帧完整数据"""
-    print("等待帧头 0x55 0xAA...")
+    print("等待帧头 0x55 0x00...")
     buffer = bytearray()
 
     # 查找帧头
