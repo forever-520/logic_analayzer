@@ -51,6 +51,7 @@ module logic_analyzer_core #(
     input  wire [1:0]               trigger_mode,
     input  wire                     trigger_mode_is_or,
     input  wire                     trigger_config_changed,  // Fix #3: Clear edge latch on config change
+    input  wire                     clear_done,              // 外部请求清除 DONE 状态，回到 WAIT_TRIGGER
 
     // 状态输出
     output reg                      capturing,       // 正在采样
@@ -208,18 +209,18 @@ module logic_analyzer_core #(
                 DONE: begin
                     wr_en        <= 1'b0;
                     capturing    <= 1'b0;
-                    capture_done <= 1'b1;
+                    capture_done <= 1'b1;  // 保持高电平，直到外部清除
 
                     if (!trigger_enable) begin
+                        // 停止模式：回到 IDLE
                         state <= IDLE;
-                        edge_triggered_latch <= 0;  // Clear latch when returning to IDLE
-                    end else begin
-                        // 自动循环模式：完成后自动回到 WAIT_TRIGGER 状态
-                        // 这样可以连续不断地采样，无需手动重启
+                        edge_triggered_latch <= 0;
+                    end else if (clear_done) begin
+                        // 连续模式：外部（uart_done）触发清除，回到 WAIT_TRIGGER
                         state <= WAIT_TRIGGER;
-                        triggered    <= 1'b0;        // 清除触发标志
-                        capture_done <= 1'b0;        // 清除完成标志
-                        edge_triggered_latch <= 0;   // 清除边沿锁存
+                        triggered    <= 1'b0;
+                        capture_done <= 1'b0;
+                        edge_triggered_latch <= 0;
                     end
                 end
 

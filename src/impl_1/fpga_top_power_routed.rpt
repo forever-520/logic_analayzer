@@ -1,7 +1,7 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-| Date             : Wed Nov  5 23:57:15 2025
+| Date             : Thu Nov  6 00:24:08 2025
 | Host             : forever running 64-bit major release  (build 9200)
 | Command          : report_power -file fpga_top_power_routed.rpt -pb fpga_top_power_summary_routed.pb -rpx fpga_top_power_routed.rpx
 | Design           : fpga_top
@@ -52,16 +52,16 @@ Table of Contents
 +--------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
-| Clocks                   |     0.009 |        4 |       --- |             --- |
-| Slice Logic              |    <0.001 |     7335 |       --- |             --- |
-|   LUT as Logic           |    <0.001 |     2160 |     17600 |           12.27 |
-|   Register               |    <0.001 |     3639 |     35200 |           10.34 |
+| Clocks                   |     0.008 |        4 |       --- |             --- |
+| Slice Logic              |     0.001 |     7336 |       --- |             --- |
+|   LUT as Logic           |    <0.001 |     2168 |     17600 |           12.32 |
+|   Register               |    <0.001 |     3641 |     35200 |           10.34 |
 |   LUT as Shift Register  |    <0.001 |      258 |      6000 |            4.30 |
 |   CARRY4                 |    <0.001 |      113 |      4400 |            2.57 |
 |   LUT as Distributed RAM |    <0.001 |       24 |      6000 |            0.40 |
-|   F7/F8 Muxes            |    <0.001 |       59 |     17600 |            0.34 |
+|   F7/F8 Muxes            |    <0.001 |       58 |     17600 |            0.33 |
 |   Others                 |     0.000 |      515 |       --- |             --- |
-| Signals                  |     0.001 |     5195 |       --- |             --- |
+| Signals                  |     0.002 |     5203 |       --- |             --- |
 | Block RAM                |     0.004 |     11.5 |        60 |           19.17 |
 | I/O                      |    <0.001 |       18 |       100 |           18.00 |
 | Static Power             |     0.094 |          |           |                 |

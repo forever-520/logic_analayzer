@@ -246,6 +246,7 @@ module fpga_top #(
         .trigger_mode(trigger_mode_sel),
         .trigger_mode_is_or(trigger_mode_sel[0]), // legacy compatible
         .trigger_config_changed(trigger_config_changed), // Fix #3
+        .clear_done(clear_done_pulse),           // 连接 clear_done 脉冲
         .capturing(capturing),
         .triggered(triggered),
         .capture_done(capture_done),
@@ -290,13 +291,21 @@ module fpga_top #(
     // UART start control: generate single-cycle pulse on capture_done rising edge
     // Fix: Edge detection prevents race condition if capture_done pulses again before uart_done
     reg capture_done_d1;
+    reg uart_done_d1;
+    wire clear_done_pulse;
+
+    // 当 uart_done 上升沿时，产生 clear_done 脉冲，通知 LA 核心回到 WAIT_TRIGGER
+    assign clear_done_pulse = uart_done && !uart_done_d1;
 
     always @(posedge sys_clk or negedge sys_rst_n) begin
         if (!sys_rst_n) begin
             capture_done_d1 <= 1'b0;
-            uart_start <= 1'b0;
+            uart_done_d1    <= 1'b0;
+            uart_start      <= 1'b0;
         end else begin
             capture_done_d1 <= capture_done;
+            uart_done_d1    <= uart_done;
+
             // Generate single-cycle pulse on rising edge of capture_done
             uart_start <= capture_done && !capture_done_d1 && !uart_busy;
         end
