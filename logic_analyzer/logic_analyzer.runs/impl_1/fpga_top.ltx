@@ -459,7 +459,7 @@
                                 "portIndex": 16,
                                 "nets": [
                                     {
-                                        "name": "p_1_in",
+                                        "name": "sample_en_sys",
                                         "isBus": false
                                     }
                                 ]
@@ -471,344 +471,103 @@
                                 "direction": "IN",
                                 "isVector": true,
                                 "leftIndex": 0,
-                                "rightIndex": 1,
+                                "rightIndex": 2,
                                 "portIndex": 17,
                                 "nets": [
                                     {
-                                        "name": "p_0_in",
+                                        "name": "rate_sel",
                                         "isBus": true,
                                         "subnets": [
                                             {
-                                                "name": "p_0_in[1]"
+                                                "name": "rate_sel[2]"
                                             },
                                             {
-                                                "name": "p_0_in[0]"
+                                                "name": "rate_sel[1]"
+                                            },
+                                            {
+                                                "name": "rate_sel[0]"
                                             }
                                         ]
                                     }
                                 ]
                             },
                             {
-                                "name": "probe18",
+                                "name": "probe17",
                                 "id": 18,
                                 "type": "DATA_TRIGGER",
                                 "direction": "IN",
                                 "isVector": true,
-                                "leftIndex": 0,
-                                "rightIndex": 7,
-                                "portIndex": 18,
+                                "leftIndex": 3,
+                                "rightIndex": 3,
+                                "portIndex": 17,
                                 "nets": [
                                     {
-                                        "name": "tx_data",
-                                        "isBus": true,
-                                        "subnets": [
-                                            {
-                                                "name": "tx_data[7]"
-                                            },
-                                            {
-                                                "name": "tx_data[6]"
-                                            },
-                                            {
-                                                "name": "tx_data[5]"
-                                            },
-                                            {
-                                                "name": "tx_data[4]"
-                                            },
-                                            {
-                                                "name": "tx_data[3]"
-                                            },
-                                            {
-                                                "name": "tx_data[2]"
-                                            },
-                                            {
-                                                "name": "tx_data[1]"
-                                            },
-                                            {
-                                                "name": "tx_data[0]"
-                                            }
-                                        ]
+                                        "name": "<const0>_1",
+                                        "isBus": false
                                     }
                                 ]
                             },
                             {
-                                "name": "probe19",
+                                "name": "probe17",
                                 "id": 19,
                                 "type": "DATA_TRIGGER",
                                 "direction": "IN",
-                                "isVector": false,
-                                "leftIndex": 0,
-                                "rightIndex": 0,
-                                "portIndex": 19,
+                                "isVector": true,
+                                "leftIndex": 4,
+                                "rightIndex": 4,
+                                "portIndex": 17,
                                 "nets": [
                                     {
-                                        "name": "tx_valid",
+                                        "name": "<const0>_2",
                                         "isBus": false
                                     }
                                 ]
                             },
                             {
-                                "name": "probe20",
+                                "name": "probe17",
                                 "id": 20,
                                 "type": "DATA_TRIGGER",
                                 "direction": "IN",
-                                "isVector": false,
-                                "leftIndex": 0,
-                                "rightIndex": 0,
-                                "portIndex": 20,
+                                "isVector": true,
+                                "leftIndex": 5,
+                                "rightIndex": 5,
+                                "portIndex": 17,
                                 "nets": [
                                     {
-                                        "name": "tx_ready",
+                                        "name": "<const0>_3",
                                         "isBus": false
                                     }
                                 ]
                             },
                             {
-                                "name": "probe21",
+                                "name": "probe17",
                                 "id": 21,
                                 "type": "DATA_TRIGGER",
                                 "direction": "IN",
-                                "isVector": false,
-                                "leftIndex": 0,
-                                "rightIndex": 0,
-                                "portIndex": 21,
+                                "isVector": true,
+                                "leftIndex": 6,
+                                "rightIndex": 6,
+                                "portIndex": 17,
                                 "nets": [
                                     {
-                                        "name": "busy",
+                                        "name": "<const0>_4",
                                         "isBus": false
                                     }
                                 ]
                             },
                             {
-                                "name": "probe22",
+                                "name": "probe17",
                                 "id": 22,
                                 "type": "DATA_TRIGGER",
                                 "direction": "IN",
                                 "isVector": true,
-                                "leftIndex": 0,
-                                "rightIndex": 10,
-                                "portIndex": 22,
-                                "nets": [
-                                    {
-                                        "name": "rd_addr",
-                                        "isBus": true,
-                                        "subnets": [
-                                            {
-                                                "name": "rd_addr[10]"
-                                            },
-                                            {
-                                                "name": "rd_addr[9]"
-                                            },
-                                            {
-                                                "name": "rd_addr[8]"
-                                            },
-                                            {
-                                                "name": "rd_addr[7]"
-                                            },
-                                            {
-                                                "name": "rd_addr[6]"
-                                            },
-                                            {
-                                                "name": "rd_addr[5]"
-                                            },
-                                            {
-                                                "name": "rd_addr[4]"
-                                            },
-                                            {
-                                                "name": "rd_addr[3]"
-                                            },
-                                            {
-                                                "name": "rd_addr[2]"
-                                            },
-                                            {
-                                                "name": "rd_addr[1]"
-                                            },
-                                            {
-                                                "name": "rd_addr[0]"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "probe23",
-                                "id": 23,
-                                "type": "DATA_TRIGGER",
-                                "direction": "IN",
-                                "isVector": true,
-                                "leftIndex": 0,
-                                "rightIndex": 2,
-                                "portIndex": 23,
-                                "nets": [
-                                    {
-                                        "name": "state",
-                                        "isBus": true,
-                                        "subnets": [
-                                            {
-                                                "name": "state[2]",
-                                                "parentNetId": 85
-                                            },
-                                            {
-                                                "name": "state[1]",
-                                                "parentNetId": 86
-                                            },
-                                            {
-                                                "name": "state[0]",
-                                                "parentNetId": 87
-                                            }
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "probe24",
-                                "id": 24,
-                                "type": "DATA_TRIGGER",
-                                "direction": "IN",
-                                "isVector": false,
-                                "leftIndex": 0,
-                                "rightIndex": 0,
-                                "portIndex": 24,
-                                "nets": [
-                                    {
-                                        "name": "uart_tx_OBUF",
-                                        "isBus": false
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "probe25",
-                                "id": 25,
-                                "type": "DATA_TRIGGER",
-                                "direction": "IN",
-                                "isVector": true,
-                                "leftIndex": 0,
+                                "leftIndex": 7,
                                 "rightIndex": 7,
-                                "portIndex": 25,
+                                "portIndex": 17,
                                 "nets": [
                                     {
-                                        "name": "rd_data",
-                                        "isBus": true,
-                                        "subnets": [
-                                            {
-                                                "name": "rd_data[7]"
-                                            },
-                                            {
-                                                "name": "rd_data[6]"
-                                            },
-                                            {
-                                                "name": "rd_data[5]"
-                                            },
-                                            {
-                                                "name": "rd_data[4]"
-                                            },
-                                            {
-                                                "name": "rd_data[3]"
-                                            },
-                                            {
-                                                "name": "rd_data[2]"
-                                            },
-                                            {
-                                                "name": "rd_data[1]"
-                                            },
-                                            {
-                                                "name": "rd_data[0]"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ],
-                "parent_nets": [
-                    {
-                        "id": 85,
-                        "name": "u_uart_streamer/state[2]",
-                        "state_reg": [
-                            {
-                                "name": "u_uart_streamer/state_reg[2]",
-                                "states": [
-                                    {
-                                        "name": "S_IDLE",
-                                        "val": "000"
-                                    },
-                                    {
-                                        "name": "S_HDR",
-                                        "val": "001"
-                                    },
-                                    {
-                                        "name": "S_PREF",
-                                        "val": "010"
-                                    },
-                                    {
-                                        "name": "S_DATA",
-                                        "val": "011"
-                                    },
-                                    {
-                                        "name": "S_DONE",
-                                        "val": "100"
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "id": 86,
-                        "name": "u_uart_streamer/state[1]",
-                        "state_reg": [
-                            {
-                                "name": "u_uart_streamer/state_reg[1]",
-                                "states": [
-                                    {
-                                        "name": "S_IDLE",
-                                        "val": "000"
-                                    },
-                                    {
-                                        "name": "S_HDR",
-                                        "val": "001"
-                                    },
-                                    {
-                                        "name": "S_PREF",
-                                        "val": "010"
-                                    },
-                                    {
-                                        "name": "S_DATA",
-                                        "val": "011"
-                                    },
-                                    {
-                                        "name": "S_DONE",
-                                        "val": "100"
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "id": 87,
-                        "name": "u_uart_streamer/state[0]",
-                        "state_reg": [
-                            {
-                                "name": "u_uart_streamer/state_reg[0]",
-                                "states": [
-                                    {
-                                        "name": "S_IDLE",
-                                        "val": "000"
-                                    },
-                                    {
-                                        "name": "S_HDR",
-                                        "val": "001"
-                                    },
-                                    {
-                                        "name": "S_PREF",
-                                        "val": "010"
-                                    },
-                                    {
-                                        "name": "S_DATA",
-                                        "val": "011"
-                                    },
-                                    {
-                                        "name": "S_DONE",
-                                        "val": "100"
+                                        "name": "<const0>",
+                                        "isBus": false
                                     }
                                 ]
                             }

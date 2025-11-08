@@ -1,7 +1,7 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------
 | Tool Version              : Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-| Date                      : Thu Nov  6 01:25:51 2025
+| Date                      : Sun Nov  9 03:03:07 2025
 | Host                      : forever running 64-bit major release  (build 9200)
 | Command                   : report_io -file fpga_top_io_placed.rpt
 | Design                    : fpga_top
@@ -25,7 +25,7 @@ Table of Contents
 +---------------+
 | Total User IO |
 +---------------+
-|            18 |
+|            15 |
 +---------------+
 
 
@@ -309,8 +309,8 @@ Table of Contents
 | P12        |                    |            | VCCINT                  | VCCINT        |             |         |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | P13        |                    |            | GND                     | GND           |             |         |            |      |                     |                      |     0.0 |            |           |          |      |                  |              |                   |              |
 | P14        |                    | High Range | IO_L6P_T0_34            | User IO       |             |      34 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
-| P15        | sw_test_enable     | High Range | IO_L24P_T3_34           | INPUT         | LVCMOS33    |      34 |            |      |                     |                 NONE |         | FIXED      | PULLUP    |          |      | NONE             |              |                   |              |
-| P16        | sw_test_pattern[1] | High Range | IO_L24N_T3_34           | INPUT         | LVCMOS33    |      34 |            |      |                     |                 NONE |         | FIXED      | PULLDOWN  |          |      | NONE             |              |                   |              |
+| P15        |                    | High Range | IO_L24P_T3_34           | User IO       |             |      34 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
+| P16        |                    | High Range | IO_L24N_T3_34           | User IO       |             |      34 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | P17        |                    |            | GND                     | GND           |             |         |            |      |                     |                      |     0.0 |            |           |          |      |                  |              |                   |              |
 | P18        |                    | High Range | IO_L23N_T3_34           | User IO       |             |      34 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | P19        | sys_rst_n          | High Range | IO_L13N_T2_MRCC_34      | INPUT         | LVCMOS33    |      34 |            |      |                     |                 NONE |         | FIXED      | PULLUP    |          |      | NONE             |              |                   |              |
@@ -353,7 +353,7 @@ Table of Contents
 | T16        |                    | High Range | IO_L9P_T1_DQS_34        | User IO       |             |      34 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | T17        |                    | High Range | IO_L20P_T3_34           | User IO       |             |      34 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | T18        |                    | High Range | VCCO_34                 | VCCO          |             |      34 |            |      |                     |                      |    3.30 |            |           |          |      |                  |              |                   |              |
-| T19        | sw_test_pattern[0] | High Range | IO_25_34                | INPUT         | LVCMOS33    |      34 |            |      |                     |                 NONE |         | FIXED      | PULLDOWN  |          |      | NONE             |              |                   |              |
+| T19        |                    | High Range | IO_25_34                | User IO       |             |      34 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | T20        |                    | High Range | IO_L15P_T2_DQS_34       | User IO       |             |      34 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | U1         |                    |            | VCCO_DDR_502            | VCCO          |             |         |            |      |                     |                      |   any** |            |           |          |      |                  |              |                   |              |
 | U2         |                    |            | PS_DDR_DQ22_502         | PSS IO        |             |         |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |

@@ -15,13 +15,13 @@ import numpy as np
 # ========== 配置 ==========
 SERIAL_PORT = 'COM11'  # 根据实际串口修改
 BAUD_RATE = 115200
-FRAME_HEADER = b'\x55\x00'  # 帧头：0x55 0x00 (实际FPGA发送的)
+FRAME_HEADER = b'\x55\xaa'  # 帧头：0x55 0xAA (实际FPGA发送的)
 FRAME_SIZE = 2048
 CHANNEL_COUNT = 8
 
 def receive_one_frame(ser):
     """接收一帧完整数据"""
-    print("等待帧头 0x55 0x00...")
+    print("等待帧头 0x55 0xAA...")
     buffer = bytearray()
 
     # 查找帧头
@@ -37,25 +37,33 @@ def receive_one_frame(ser):
             print(f"✓ 找到帧头！位置: {len(buffer)-2}")
             break
 
-    # 读取剩余数据：长度(2) + 触发索引(2) + 数据(2048) = 2052 字节
+    # 读取剩余数据：长度(2) + 采样率档位(1) + 触发索引(2) + 数据(2048) = 2053 字节
     print("正在接收数据...")
-    remaining = ser.read(2052)
+    remaining = ser.read(2053)
 
-    if len(remaining) < 2052:
+    if len(remaining) < 2053:
         print(f"❌ 数据不完整，只收到 {len(remaining)} 字节")
         return None
 
     # 解析
     frame_len = struct.unpack('<H', remaining[0:2])[0]
-    trigger_idx = struct.unpack('<H', remaining[2:4])[0]
-    payload = remaining[4:4+FRAME_SIZE]
+    rate_sel = remaining[2]
+    trigger_idx = struct.unpack('<H', remaining[3:5])[0]
+    payload = remaining[5:5+FRAME_SIZE]
+
+    # 计算实际采样率
+    div_factor = 1 << rate_sel
+    sampling_rate = 32_000_000 / div_factor  # 基准32MHz
 
     print(f"✓ 帧长度: {frame_len}")
+    print(f"✓ 采样率档位: {rate_sel} -> {sampling_rate/1e6:.3f} MHz (分频比 {div_factor})")
     print(f"✓ 触发位置: {trigger_idx}")
     print(f"✓ 数据负载: {len(payload)} 字节")
 
     return {
         'length': frame_len,
+        'rate_sel': rate_sel,
+        'sampling_rate': sampling_rate,
         'trigger_index': trigger_idx,
         'data': payload
     }
@@ -63,7 +71,9 @@ def receive_one_frame(ser):
 def plot_waveform(frame):
     """绘制8通道波形"""
     data = frame['data']
-    trigger_idx = frame['trigger_index']
+    trigger_idx_global = frame['trigger_index']  # 全局累计触发位置
+    trigger_idx = trigger_idx_global % FRAME_SIZE  # 当前帧内的位置 (0-2047)
+    sampling_rate = frame.get('sampling_rate', 32_000_000)  # 实际采样率(Hz)
 
     # 解析每个字节为8个通道
     channels = [[] for _ in range(CHANNEL_COUNT)]
@@ -74,10 +84,16 @@ def plot_waveform(frame):
             channels[ch].append(bit_val)
 
     # 创建图形
+    rate_sel = frame.get('rate_sel', 0)
     fig, axes = plt.subplots(CHANNEL_COUNT, 1, figsize=(14, 10), sharex=True)
-    fig.suptitle(f'逻辑分析仪波形 (触发位置: {trigger_idx})', fontsize=14)
+    fig.suptitle(f'逻辑分析仪波形 (8通道) - 采样率: {sampling_rate/1e6:.3f} MHz', fontsize=14)
 
-    time_axis = np.arange(len(channels[0]))
+    # 计算真实时间轴（单位：微秒）
+    dt_us = 1e6 / sampling_rate  # 每个采样点的时间间隔(µs)
+    time_axis = np.arange(len(channels[0])) * dt_us
+
+    # 计算触发点对应的时间值
+    trigger_time = trigger_idx * dt_us
 
     for i in range(CHANNEL_COUNT):
         axes[i].plot(time_axis, channels[i], 'b-', linewidth=1)
@@ -85,20 +101,15 @@ def plot_waveform(frame):
         axes[i].set_ylim(-0.2, 1.2)
         axes[i].grid(True, alpha=0.3)
 
-        # 标记触发位置
-        if trigger_idx < len(time_axis):
-            axes[i].axvline(x=trigger_idx, color='r', linestyle='--', linewidth=2, alpha=0.7)
+        # 绘制触发点垂直线（使用时间坐标）
+        axes[i].axvline(x=trigger_time, color='red', linestyle='--', linewidth=2, alpha=0.7,
+                       label='Trigger' if i == 0 else '')
 
-    axes[-1].set_xlabel('采样点', fontsize=11)
-    axes[0].text(trigger_idx, 1.1, '触发点', color='r', fontsize=10, ha='center')
+    # 在第一个通道显示图例
+    axes[0].legend(loc='upper right', fontsize=10)
 
+    axes[-1].set_xlabel('时间 (μs)', fontsize=11)
     plt.tight_layout()
-
-    # 显示前32字节的十六进制
-    print("\n前32字节数据:")
-    for i in range(0, min(32, len(data)), 16):
-        hex_str = ' '.join(f'{b:02X}' for b in data[i:i+16])
-        print(f"  [{i:04d}] {hex_str}")
 
     print("\n关闭图形窗口以退出...")
     plt.show()

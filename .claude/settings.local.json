@@ -1,11 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(sed:*)",
-      "mcp__zen__clink",
-      "Bash(codex exec \"请全面检查 E:\\fpga_class\\vivado\\logic_analyzer 项目中的所有 Verilog 代码，重点关注：1. 语法错误和潜在 bug 2. 时序问题（异步复位、跨时钟域、亚稳态）3. 代码风格和可维护性 4. 资源利用效率 5. 功能完整性和逻辑正确性。请列出所有发现的问题，并给出优化建议。\")",
-      "Bash(codex exec \"分析 src/ 目录下的 Verilog 代码，列出前5个最重要的问题和优化建议。重点关注：时序问题、跨时钟域、异步复位风险。请简洁总结。\")",
-      "mcp__zen__chat"
+      "Bash(codex exec:*)",
+      "Bash(timeout 120 tail:*)"
     ],
     "deny": [],
     "ask": []

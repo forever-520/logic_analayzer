@@ -70,9 +70,7 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_param tcl.collectionResultDisplayLimit 0
 set_param chipscope.maxJobs 4
-set_param xicom.use_bs_reader 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7z010clg400-2
 
@@ -94,11 +92,17 @@ read_verilog -library xil_defaultlib {
   E:/fpga_class/vivado/logic_analyzer/src/input_synchronizer.v
   E:/fpga_class/vivado/logic_analyzer/src/logic_analyzer_core.v
   E:/fpga_class/vivado/logic_analyzer/src/sample_buffer.v
-  E:/fpga_class/vivado/logic_analyzer/src/test_signal_gen.v
+  E:/fpga_class/vivado/logic_analyzer/src/sample_rate_divider.v
   E:/fpga_class/vivado/logic_analyzer/src/uart_bram_streamer.v
   E:/fpga_class/vivado/logic_analyzer/src/uart_tx.v
   E:/fpga_class/vivado/logic_analyzer/src/fpga_top.v
 }
+read_ip -quiet E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.gen/sources_1/ip/clk_32m_pll/clk_32m_pll.xci
+set_property used_in_implementation false [get_files -all e:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.gen/sources_1/ip/clk_32m_pll/clk_32m_pll_board.xdc]
+set_property used_in_implementation false [get_files -all e:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.gen/sources_1/ip/clk_32m_pll/clk_32m_pll.xdc]
+set_property used_in_implementation false [get_files -all e:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.gen/sources_1/ip/clk_32m_pll/clk_32m_pll_ooc.xdc]
+set_property used_in_implementation false [get_files -all e:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.gen/sources_1/ip/clk_32m_pll/clk_32m_pll_late.xdc]
+
 read_ip -quiet E:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.srcs/sources_1/ip/ila/ila.xci
 set_property used_in_synthesis false [get_files -all e:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.gen/sources_1/ip/ila/ila_v6_2/constraints/ila_impl.xdc]
 set_property used_in_implementation false [get_files -all e:/fpga_class/vivado/logic_analyzer/logic_analyzer/logic_analyzer.gen/sources_1/ip/ila/ila_v6_2/constraints/ila_impl.xdc]
@@ -117,6 +121,8 @@ foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
 read_xdc E:/fpga_class/vivado/logic_analyzer/src/logic_analyzer.xdc
 set_property used_in_implementation false [get_files E:/fpga_class/vivado/logic_analyzer/src/logic_analyzer.xdc]
 
+read_xdc dont_touch.xdc
+set_property used_in_implementation false [get_files dont_touch.xdc]
 set_param ips.enableIPCacheLiteLoad 1
 close [open __synthesis_is_running__ w]
 
