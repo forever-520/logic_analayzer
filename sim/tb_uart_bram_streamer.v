@@ -45,6 +45,7 @@ module tb_uart_bram_streamer;
     ) uut (
         .clk(clk), .rst_n(rst_n),
         .start(start), .busy(busy), .done(done),
+        .rate_sel(3'd0),
         .trigger_index(trigger_index),
         .rd_addr(rd_addr), .rd_data(rd_data),
         .uart_tx(uart_tx)
@@ -92,14 +93,45 @@ module tb_uart_bram_streamer;
         end
     endtask
 
-    reg [7:0] r;
+    // Header verification and payload check (7-byte header)
+    localparam integer DEPTH = (1<<ADDR_W);
+    localparam [15:0] LEN16  = (16'd1<<ADDR_W);
+    wire [15:0] trig16 = { {(16-ADDR_W){1'b0}}, trigger_index };
+
+    reg [7:0] hdr [0:6];
+    reg [7:0] payload_byte;
+    integer k;
+
     initial begin
-        // Wait some time then start receiving stream
+        // Wait a moment then receive one full frame
         #1000;
-        forever begin
-            uart_rx_byte(r);
-            $write("%02h ", r);
+
+        // Receive 7-byte header: 55 AA len_l len_h rate_sel trig_l trig_h
+        for (k=0; k<7; k=k+1) begin
+            uart_rx_byte(hdr[k]);
         end
+        $display("\nHeader = %02h %02h %02h %02h %02h %02h %02h",
+                 hdr[0],hdr[1],hdr[2],hdr[3],hdr[4],hdr[5],hdr[6]);
+
+        if (hdr[0]!==8'h55 || hdr[1]!==8'hAA ||
+            hdr[2]!==LEN16[7:0] || hdr[3]!==LEN16[15:8] ||
+            hdr[4]!==8'h00 || // rate_sel = 3'd0
+            hdr[5]!==trig16[7:0] || hdr[6]!==trig16[15:8]) begin
+            $fatal(1,
+                "Header mismatch: got %02h %02h %02h %02h %02h %02h %02h, exp 55 AA %02h %02h 00 %02h %02h",
+                hdr[0],hdr[1],hdr[2],hdr[3],hdr[4],hdr[5],hdr[6],
+                LEN16[7:0],LEN16[15:8],trig16[7:0],trig16[15:8]);
+        end
+
+        // Receive and verify payload bytes: expected 0..DEPTH-1
+        for (k=0; k<DEPTH; k=k+1) begin
+            uart_rx_byte(payload_byte);
+            if (payload_byte !== k[7:0]) begin
+                $fatal(1, "Payload mismatch at %0d: got %02h exp %02h",
+                       k, payload_byte, k[7:0]);
+            end
+        end
+        $display("\nFrame verified OK (LEN=%0d, trig=%0d, rate_sel=0)", DEPTH, trigger_index);
     end
 
 endmodule
