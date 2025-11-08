@@ -1,0 +1,39 @@
+# Vivado临时文件和缓存
+logic_analyzer/.Xil/
+logic_analyzer/logic_analyzer.cache/ip/
+logic_analyzer/logic_analyzer.gen/sources_1/ip/*/
+logic_analyzer/logic_analyzer.ip_user_files/
+logic_analyzer/logic_analyzer.runs/.jobs/
+logic_analyzer/logic_analyzer.runs/impl_1/.Xil/
+logic_analyzer/logic_analyzer.runs/impl_1/*.backup.vdi
+logic_analyzer/logic_analyzer.runs/impl_1/*.backup.jou
+logic_analyzer/logic_analyzer.runs/synth_1/dont_touch.xdc
+logic_analyzer/logic_analyzer.srcs/sources_1/ip/*/
+
+# Vivado备份日志
+*.backup.jou
+*.backup.log
+vivado_pid*.str
+
+# 仿真临时输出
+sim/_snapshot_*.txt
+transcript
+
+# 综合临时文件
+src/.jobs/
+src/ila_synth_1/
+
+# Python缓存
+__pycache__/
+*.pyc
+*.pyo
+
+# 编辑器临时文件
+.vscode/
+*.swp
+*~
+.DS_Store
+
+# 保留这些重要文件(不忽略)
+!logic_analyzer/logic_analyzer.srcs/sources_1/ip/ila/ila.xci
+!logic_analyzer/logic_analyzer.srcs/sources_1/ip/clk_32m_pll/clk_32m_pll.xci
