@@ -15,15 +15,18 @@
  * - btn_channel_select : 触发配置通道选择按键。
  * - btn_type_select    : 当前通道触发类型循环按键（关/上升/下降/高/低）。
  * - btn_trigger_mode   : 触发模式轮换（OR/AND-ACC/AND-COIN）。
- * - sw_test_enable     : 1=采样内部测试信号，0=采样外部 probe_signals。
- * - sw_test_pattern[1:0]: 测试信号模式选择。
+ *                       长按(>1s)用于切换采样率档位(0-7: 32M/16M/8M/4M/2M/1M/500K/250KHz)。
  * - uart_tx            : UART 发送引脚，用于导出采样数据。
  */
 
 module fpga_top #(
     // Debounce counter max. Default ~20ms @50MHz
     // In simulation, override in the testbench, e.g. 10'd500 (~10us)
-    parameter integer DEBOUNCE_CNT_MAX = 20'd999_999
+    parameter integer DEBOUNCE_CNT_MAX = 20'd999_999,
+    // 触发间隔控制（默认 100ms）
+    parameter integer RETRIGGER_DELAY_MS = 100,
+    // 强制触发超时（默认 10秒）
+    parameter integer FORCE_TRIGGER_SEC = 10
 )(
     // System clock and reset
     input  wire        sys_clk,
@@ -38,28 +41,35 @@ module fpga_top #(
     input  wire        btn_type_select,
     input  wire        btn_trigger_mode,
 
-    // Optional test signal generator control
-    input  wire        sw_test_enable,
-    input  wire [1:0]  sw_test_pattern,
-
     // UART output for data export
     output wire        uart_tx
 );
 
     // Internal signals
     wire [7:0] probe_sync;
-    wire [7:0] test_signals;
     wire [7:0] sample_data;
 
-    // Internal status observation buses for logic analyzer
-    wire [7:0] internal_bus0;  // Status and write address
-    wire [7:0] internal_bus1;  // Configuration state
-    wire [7:0] observed_signals;
+    // ========== 采样率控制相关信号 ==========
+    reg  [2:0]  rate_sel;                // 采样率档位 0..7
+    // PLL outputs and status
+    wire        clk_32m;                 // 32MHz基准时钟（由PLL输出）
+    wire        pll_locked;              // PLL锁定指示
+    wire        pll_rst_n;               // PLL复位（低有效）
+    wire        rst_n_gated;             // 门控复位：sys_rst_n && pll_locked
+    assign pll_rst_n = sys_rst_n;
+    assign rst_n_gated = sys_rst_n && pll_locked;
+
+    wire        sample_tick_32m;         // 32MHz域采样使能脉冲
+    reg         tick_toggle_32m;         // 跨时钟域toggle信号(32MHz→sys_clk)
+    wire [0:0]  tick_toggle_sys_sync;    // 同步到sys_clk后
+    reg         tick_toggle_sys_d1;      // 用于边沿检测
+    wire        sample_en_sys;           // sys_clk域的采样使能脉冲
 
     wire btn_trigger_pulse;
     wire btn_channel_pulse;
     wire btn_type_pulse;
     wire btn_mode_pulse;
+    wire [0:0] btn_mode_level_sync; // btn_trigger_mode同步后的电平信号
 
     reg  trigger_enable_state;      // 1=run, 0=stop
     reg  [1:0] trigger_mode_sel;    // 00=OR, 01=AND-ACC, 10=AND-COIN
@@ -106,28 +116,25 @@ module fpga_top #(
     wire        uart_busy;
     wire        uart_done;
 
-    // Synchronize trigger_enable_state for glitch protection
+    // 1-cycle delayed copy of trigger_enable_state for glitch protection
+    // (Both signals in same sys_clk domain; this is pipeline delay, not CDC synchronizer)
     reg         trigger_enable_sync;
 
     // Fix #3: Signal for clearing edge latch when config changes
     wire        trigger_config_changed;
-    assign trigger_config_changed = btn_mode_pulse | btn_type_pulse;
+    assign trigger_config_changed = btn_type_pulse;  // 注意:btn_mode_pulse改为长按检测,不再用于config_changed
 
-    // Internal status observation buses
-    // Bus 0: captures runtime status and write address
-    assign internal_bus0 = {capture_done, triggered, capturing, uart_busy, wr_addr[3:0]};
+    // ========== 长按检测(用于采样率切换) ==========
+    localparam integer LONG_PRESS_CYCLES = 50_000_000;  // ~1秒@50MHz
+    reg [25:0] mode_btn_lp_cnt;    // 长按计数器
+    reg        mode_btn_lp_act;    // 长按激活标志(防止重复触发)
 
-    // Bus 1: captures configuration state and button pulses
-    assign internal_bus1 = {1'b0, trigger_mode_sel, config_channel_idx, btn_type_pulse, btn_channel_pulse};
+    // 计算触发控制参数（时间转换为周期数）
+    localparam integer RETRIGGER_DELAY_CYCLES = RETRIGGER_DELAY_MS * 50_000;  // ms → cycles @ 50MHz
+    localparam integer FORCE_TRIGGER_CYCLES   = FORCE_TRIGGER_SEC * 50_000_000; // s → cycles @ 50MHz
 
-    // Select observed signals based on test mode and pattern
-    assign observed_signals = (sw_test_enable == 1'b0) ? probe_sync :
-                              (sw_test_pattern == 2'b00) ? test_signals :
-                              (sw_test_pattern == 2'b01) ? internal_bus0 :
-                              internal_bus1;
-
-    // Connect observed signals to sample data
-    assign sample_data = observed_signals;
+    // 采样数据直接来自外部probe(移除内部测试信号)
+    assign sample_data = probe_sync;
 
     // Run/stop toggle with synchronized output for glitch protection
     always @(posedge sys_clk or negedge sys_rst_n) begin
@@ -143,15 +150,39 @@ module fpga_top #(
         end
     end
 
-    // Trigger mode cycle: OR -> AND-ACC -> AND-COIN
+    // ========== 长按检测与短按区分 ==========
+    // 短按(<1s): 触发模式切换 OR -> AND-ACC -> AND-COIN
+    // 长按(>1s): 采样率档位切换 0->1->...->7->0
     always @(posedge sys_clk or negedge sys_rst_n) begin
         if (!sys_rst_n) begin
-            trigger_mode_sel <= 2'd0; // OR
-        end else if (btn_mode_pulse) begin
-            if (trigger_mode_sel == 2'd2)
-                trigger_mode_sel <= 2'd0;
-            else
-                trigger_mode_sel <= trigger_mode_sel + 1'b1;
+            mode_btn_lp_cnt  <= 26'd0;
+            mode_btn_lp_act  <= 1'b0;
+            rate_sel         <= 3'd0;
+            trigger_mode_sel <= 2'd0;
+        end else begin
+            // 按键按下时,计数器累加(使用同步后的信号,避免CDC风险)
+            if (btn_mode_level_sync[0] == 1'b0) begin  // 按键低有效
+                if (mode_btn_lp_cnt < LONG_PRESS_CYCLES)
+                    mode_btn_lp_cnt <= mode_btn_lp_cnt + 1'b1;
+
+                // 达到1秒阈值且未激活,触发采样率切换
+                if ((mode_btn_lp_cnt == LONG_PRESS_CYCLES - 1) && !mode_btn_lp_act) begin
+                    mode_btn_lp_act <= 1'b1;
+                    rate_sel <= (rate_sel == 3'd7) ? 3'd0 : (rate_sel + 1'b1);
+                end
+            end else begin
+                // 按键松开:如果未达到长按阈值,则为短按(触发模式切换)
+                if (mode_btn_lp_cnt > 26'd0 && mode_btn_lp_cnt < LONG_PRESS_CYCLES && !mode_btn_lp_act) begin
+                    // 短按:触发模式循环
+                    if (trigger_mode_sel == 2'd2)
+                        trigger_mode_sel <= 2'd0;
+                    else
+                        trigger_mode_sel <= trigger_mode_sel + 1'b1;
+                end
+                // 复位计数和标志
+                mode_btn_lp_cnt <= 26'd0;
+                mode_btn_lp_act <= 1'b0;
+            end
         end
     end
 
@@ -201,6 +232,75 @@ module fpga_top #(
         .data_out(probe_sync)
     );
 
+    // btn_trigger_mode电平信号同步器(用于长按检测)
+    input_synchronizer #(
+        .DATA_WIDTH(1),
+        .SYNC_STAGES(2)
+    ) u_btn_mode_sync (
+        .clk(sys_clk),
+        .rst_n(sys_rst_n),
+        .data_in(btn_trigger_mode),
+        .data_out(btn_mode_level_sync)
+    );
+
+`ifndef SIMULATION
+    // ========== PLL生成32MHz基准时钟 ==========
+    // PLL会自动处理输入时钟缓冲(IBUFG)
+    clk_32m_pll u_pll (
+        .clk_out1(clk_32m),       // 输出32MHz
+        .reset(~sys_rst_n),       // 高有效复位
+        .locked(pll_locked),      // 锁定指示
+        .clk_in1(sys_clk)         // 输入50MHz
+    );
+`else
+    // ========== 仿真时使用25MHz分频器 ==========
+    reg clk_div2_sim;
+    always @(posedge sys_clk or negedge sys_rst_n) begin
+        if (!sys_rst_n)
+            clk_div2_sim <= 1'b0;
+        else
+            clk_div2_sim <= ~clk_div2_sim;
+    end
+    assign clk_32m = clk_div2_sim;
+    assign pll_locked = 1'b1;
+`endif
+
+    // ========== 采样率分频器 ==========
+    sample_rate_divider u_sample_rate_div (
+        .clk      (clk_32m),
+        .rst_n    (rst_n_gated),
+        .rate_sel (rate_sel),
+        .sample_en(sample_tick_32m)
+    );
+
+    // ========== 跨时钟域同步(32MHz→sys_clk) ==========
+    // 使用toggle+同步器+XOR边沿检测技术
+    always @(posedge clk_32m or negedge rst_n_gated) begin
+        if (!rst_n_gated)
+            tick_toggle_32m <= 1'b0;
+        else if (sample_tick_32m)
+            tick_toggle_32m <= ~tick_toggle_32m;
+    end
+
+    input_synchronizer #(
+        .DATA_WIDTH(1),
+        .SYNC_STAGES(2)
+    ) u_tick_sync (
+        .clk(sys_clk),
+        .rst_n(rst_n_gated),
+        .data_in(tick_toggle_32m),
+        .data_out(tick_toggle_sys_sync)
+    );
+
+    always @(posedge sys_clk or negedge rst_n_gated) begin
+        if (!rst_n_gated)
+            tick_toggle_sys_d1 <= 1'b0;
+        else
+            tick_toggle_sys_d1 <= tick_toggle_sys_sync[0];
+    end
+
+    assign sample_en_sys = tick_toggle_sys_sync[0] ^ tick_toggle_sys_d1;
+
     // Debounce: output single-cycle pulse
     debounce #(.CNT_MAX(DEBOUNCE_CNT_MAX)) u_debounce_trigger (
         .clk(sys_clk),
@@ -233,10 +333,13 @@ module fpga_top #(
     // Logic analyzer core
     logic_analyzer_core #(
         .DATA_WIDTH(8),
-        .ADDR_WIDTH(11)
+        .ADDR_WIDTH(11),
+        .RETRIGGER_DELAY_CYCLES(RETRIGGER_DELAY_CYCLES),
+        .FORCE_TRIGGER_CYCLES(FORCE_TRIGGER_CYCLES)
     ) u_la_core (
         .clk(sys_clk),
         .rst_n(sys_rst_n),
+        .sample_en(sample_en_sys),               // 添加采样使能
         .sample_data(sample_data),
         .trigger_enable(trigger_enable_sync),  // Use synchronized version
         .trigger_value(8'h00),
@@ -282,6 +385,7 @@ module fpga_top #(
         .start(uart_start),
         .busy(uart_busy),
         .done(uart_done),
+        .rate_sel(rate_sel),                     // 添加采样率档位
         .trigger_index(trigger_index),
         .rd_addr(rd_addr),
         .rd_data(rd_data),
@@ -311,17 +415,6 @@ module fpga_top #(
         end
     end
 
-    // Test signal generator (optional)
-    test_signal_gen #(
-        .DATA_WIDTH(8)
-    ) u_test_gen (
-        .clk(sys_clk),
-        .rst_n(sys_rst_n),
-        .enable(sw_test_enable),
-        .pattern_sel(sw_test_pattern),
-        .test_data(test_signals)
-    );
-
 `ifndef SIMULATION
     // Integrated Logic Analyzer (ILA) for on-chip debug
     // IP name: ila  (generated by Vivado). Probes mapping follows ila.veo template.
@@ -346,18 +439,8 @@ module fpga_top #(
         // 将 probe15 用于显示"当前通道的触发配置"
         // bit2: 0=边沿/1=电平；bit1: 极性；bit0: 使能
         .probe15(curr_trig_cfg_ext),    // [7:0] 显示为 {5'b0, 3'bcfg}
-        .probe16(sw_test_enable),       // [0:0]
-        .probe17(sw_test_pattern),      // [1:0]
-
-        // ========== UART Debug Probes (新增) ==========
-        .probe18(u_uart_streamer.tx_data),      // [7:0]  发送的字节 ⭐
-        .probe19(u_uart_streamer.tx_valid),     // [0:0]  发送请求
-        .probe20(u_uart_streamer.u_tx.tx_ready),// [0:0]  UART 空闲
-        .probe21(u_uart_streamer.busy),         // [0:0]  发送忙 ⭐
-        .probe22(u_uart_streamer.rd_addr),      // [10:0] BRAM 读地址 ⭐
-        .probe23(u_uart_streamer.state),        // [2:0]  状态机
-        .probe24(uart_tx),                      // [0:0]  串口波形
-        .probe25(u_uart_streamer.rd_data)       // [7:0]  BRAM 读数据
+        .probe16(sample_en_sys),        // [0:0] 采样使能脉冲(观察采样频率)
+        .probe17({5'b0,rate_sel})       // [7:0] 采样率档位 {5'd0, rate_sel[2:0]}
     );
 `endif
 

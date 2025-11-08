@@ -1,9 +1,9 @@
 `timescale 1ns / 1ps
 /*
  * 模块名称: uart_bram_streamer
- * 功能概述: 通过 UART 以“帧”的形式发送 BRAM 中的完整缓冲数据，用于导出采样结果。
- *           帧格式: 0x55 0xAA | LEN_L LEN_H | TRIG_L TRIG_H | DATA[0..LEN-1]
- *           其中 LEN = 2^ADDR_WIDTH，TRIG_* 为触发参考地址（供上位机重排显示）。
+ * 功能概述: 通过 UART 以"帧"的形式发送 BRAM 中的完整缓冲数据，用于导出采样结果。
+ *           帧格式: 0x55 0xAA | LEN_L LEN_H | RATE_SEL | TRIG_L TRIG_H | DATA[0..LEN-1]
+ *           其中 LEN = 2^ADDR_WIDTH，RATE_SEL为采样率档位[2:0]，TRIG_* 为触发参考地址（供上位机重排显示）。
  *
  * 参数说明:
  * - DATA_WIDTH: BRAM 数据位宽（字节发送）。
@@ -21,8 +21,8 @@
  */
 
 // 将 BRAM 中的数据以帧的形式通过 UART 发送到主机。
-// 帧格式：0x55 0xAA | LEN_L LEN_H | TRIG_L TRIG_H | DATA[0..LEN-1]
-// 说明：LEN = 2^ADDR_WIDTH（整个缓冲区长度）。
+// 帧格式：0x55 0xAA | LEN_L LEN_H | RATE_SEL | TRIG_L TRIG_H | DATA[0..LEN-1]
+// 说明：LEN = 2^ADDR_WIDTH（整个缓冲区长度），RATE_SEL为采样率档位[2:0]。
 
 module uart_bram_streamer #(
     parameter integer DATA_WIDTH = 8,
@@ -37,6 +37,7 @@ module uart_bram_streamer #(
     output reg                    busy,           // 正在发送
     output reg                    done,           // 单帧发送完成脉冲
 
+    input  wire [2:0]             rate_sel,       // 采样率档位选择[2:0]
     input  wire [ADDR_WIDTH-1:0]  trigger_index,  // 触发参考地址（将随帧发送）
 
     // BRAM 读口（与 sample_buffer 的读端口对接）
@@ -75,7 +76,7 @@ module uart_bram_streamer #(
     localparam S_DONE   = 3'd4;
 
     reg [2:0]  state;
-    reg [2:0]  hdr_idx;       // 0..5
+    reg [2:0]  hdr_idx;       // 0..6 (添加了rate_sel字节)
     reg [ADDR_WIDTH-1:0] addr;
     reg [ADDR_WIDTH-1:0] bytes_sent;
     reg [7:0]  data_latched;  // 对齐 BRAM 一拍延迟
@@ -87,7 +88,8 @@ module uart_bram_streamer #(
                           (hdr_idx==3'd1) ? 8'hAA :
                           (hdr_idx==3'd2) ? LEN16[7:0] :
                           (hdr_idx==3'd3) ? LEN16[15:8] :
-                          (hdr_idx==3'd4) ? trig16[7:0] :
+                          (hdr_idx==3'd4) ? {5'b0, rate_sel} :  // 采样率档位
+                          (hdr_idx==3'd5) ? trig16[7:0] :
                                             trig16[15:8];
 
     // 主过程
@@ -122,8 +124,8 @@ module uart_bram_streamer #(
                     if (tx_ready) begin
                         tx_data  <= hdr_byte;
                         tx_valid <= 1'b1;
-                        if (hdr_idx == 3'd5) begin
-                            // 头部发完，开始预取数据
+                        if (hdr_idx == 3'd6) begin
+                            // 头部发完（0x55 0xAA LEN_L LEN_H RATE_SEL TRIG_L TRIG_H），开始预取数据
                             addr       <= {ADDR_WIDTH{1'b0}};
                             rd_addr    <= {ADDR_WIDTH{1'b0}};
                             bytes_sent <= {ADDR_WIDTH{1'b0}};

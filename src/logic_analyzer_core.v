@@ -32,13 +32,18 @@ module logic_analyzer_core #(
     parameter ADDR_WIDTH = 11,  // 2^ADDR_WIDTH deep
     // post-trigger samples to capture after the trigger fires
     // default to half of the buffer depth
-    parameter integer POST_TRIGGER_SAMPLES = (1<<ADDR_WIDTH)/2
+    parameter integer POST_TRIGGER_SAMPLES = (1<<ADDR_WIDTH)/2,
+    // 重触发延迟周期数（默认 100ms @ 50MHz）
+    parameter integer RETRIGGER_DELAY_CYCLES = 5_000_000,
+    // 强制触发超时周期数（默认 10s @ 50MHz）
+    parameter integer FORCE_TRIGGER_CYCLES = 500_000_000
 )(
     input  wire                     clk,
     input  wire                     rst_n,
 
     // 采样数据输入
     input  wire [DATA_WIDTH-1:0]    sample_data,
+    input  wire                     sample_en,       // 采样使能（由sample_rate_divider产生）
 
     // 控制信号
     input  wire                     trigger_enable,  // 触发使能
@@ -75,6 +80,11 @@ module logic_analyzer_core #(
     reg [ADDR_WIDTH-1:0] post_cnt;     // after-trigger counter
     reg [DATA_WIDTH-1:0] sample_data_d1;  // 用于边沿检测
     reg [DATA_WIDTH-1:0] edge_triggered_latch;  // 记录哪些边沿已触发（AND模式用）
+
+    // 新增：触发间隔控制与强制触发
+    reg [31:0] retrigger_delay_cnt;    // 重触发延迟计数器
+    reg [31:0] force_trigger_cnt;      // 强制触发超时计数器
+    reg        retrigger_ready;        // 允许重新触发标志（1=可触发，0=延迟中）
 
     // 每位独立的触发检测逻辑
     wire [DATA_WIDTH-1:0] bit_trigger_detected;
@@ -124,6 +134,9 @@ module logic_analyzer_core #(
                             (trigger_mode == 2'd1) ? all_enabled_triggered_acc :
                             /*2'd2 or default*/      all_enabled_triggered_co;
 
+    // 强制触发信号：超时计数器溢出时强制触发
+    wire force_trigger_fire = (force_trigger_cnt >= FORCE_TRIGGER_CYCLES - 1);
+
     // 主状态机
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
@@ -138,6 +151,10 @@ module logic_analyzer_core #(
             sample_data_d1<= 0;
             edge_triggered_latch <= 0;
             trigger_index <= 0;
+            // 初始化新增信号
+            retrigger_delay_cnt <= 0;
+            force_trigger_cnt   <= 0;
+            retrigger_ready     <= 1'b1;  // 初始允许触发
         end else begin
             sample_data_d1 <= sample_data;
 
@@ -150,6 +167,10 @@ module logic_analyzer_core #(
                     wr_addr      <= 0;
                     post_cnt     <= 0;
                     edge_triggered_latch <= 0;  // 复位边沿锁存
+                    // 复位触发控制信号
+                    retrigger_ready     <= 1'b1;
+                    force_trigger_cnt   <= 0;
+                    retrigger_delay_cnt <= 0;
 
                     if (trigger_enable) begin
                         state     <= WAIT_TRIGGER;
@@ -159,8 +180,29 @@ module logic_analyzer_core #(
 
                 WAIT_TRIGGER: begin
                     // 持续采样，环形写入（wr_addr按位宽自然回绕）
-                    wr_en   <= 1'b1;
-                    wr_data <= sample_data;
+                    // 采样门控：仅在sample_en为高时写入
+                    if (sample_en) begin
+                        wr_en   <= 1'b1;
+                        wr_data <= sample_data;
+                        wr_addr <= wr_addr + 1'b1;
+                    end else begin
+                        wr_en   <= 1'b0;
+                    end
+
+                    // 触发间隔控制逻辑
+                    if (!retrigger_ready) begin
+                        // 延迟期间：递增延迟计数器
+                        retrigger_delay_cnt <= retrigger_delay_cnt + 1;
+                        if (retrigger_delay_cnt >= RETRIGGER_DELAY_CYCLES - 1) begin
+                            retrigger_ready <= 1'b1;  // 延迟结束，允许触发
+                            force_trigger_cnt <= 0;   // 重置强制触发计数器
+                        end
+                    end else begin
+                        // 允许触发期间：递增强制触发计数器
+                        if (force_trigger_cnt < FORCE_TRIGGER_CYCLES) begin
+                            force_trigger_cnt <= force_trigger_cnt + 1;
+                        end
+                    end
 
                     // Fix #3: Clear edge latch when trigger config changes
                     if (trigger_config_changed) begin
@@ -171,16 +213,15 @@ module logic_analyzer_core #(
                         edge_triggered_latch <= edge_triggered_latch | (bit_trigger_detected & edge_trigger);
                     end
 
-                    if (trigger_detected) begin
+                    // 触发检测：正常触发 OR 强制触发，且允许重触发
+                    if ((trigger_detected || force_trigger_fire) && retrigger_ready) begin
                         state     <= POST_CAPTURE;
                         triggered <= 1'b1;
                         // Fix #2: Record current wr_addr as trigger location
                         trigger_index <= wr_addr;
                         post_cnt <= {ADDR_WIDTH{1'b0}};
+                        force_trigger_cnt <= 0;  // 触发后复位强制触发计数器
                     end
-
-                    // Update address after recording trigger_index
-                    wr_addr <= wr_addr + 1'b1;
 
                     if (!trigger_enable) begin
                         state <= IDLE;
@@ -190,11 +231,15 @@ module logic_analyzer_core #(
 
                 POST_CAPTURE: begin
                     // 触发后继续采样固定数量（POST_TRIGGER_SAMPLES）
-                    wr_en   <= 1'b1;
-                    wr_data <= sample_data;
-                    // Fix: Explicit address wraparound (though natural wraparound should work)
-                    wr_addr <= wr_addr + 1'b1;  // Address width limits automatic wraparound
-                    post_cnt <= post_cnt + 1'b1;
+                    // 采样门控：仅在sample_en为高时写入并计数
+                    if (sample_en) begin
+                        wr_en   <= 1'b1;
+                        wr_data <= sample_data;
+                        wr_addr <= wr_addr + 1'b1;
+                        post_cnt <= post_cnt + 1'b1;
+                    end else begin
+                        wr_en   <= 1'b0;
+                    end
 
                     if (post_cnt == POST_TRIGGER_SAMPLES-1) begin
                         state <= DONE;
@@ -221,6 +266,9 @@ module logic_analyzer_core #(
                         triggered    <= 1'b0;
                         capture_done <= 1'b0;
                         edge_triggered_latch <= 0;
+                        // 启动重触发延迟
+                        retrigger_ready     <= 1'b0;  // 禁止立即触发
+                        retrigger_delay_cnt <= 0;      // 重置延迟计数器
                     end
                 end
 
