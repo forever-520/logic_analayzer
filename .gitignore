@@ -1,0 +1,38 @@
+############################
+# Vivado generated files   #
+############################
+
+# Vivado project working dirs
+logic_analyzer/.Xil/
+logic_analyzer/logic_analyzer.cache/
+logic_analyzer/logic_analyzer.gen/
+logic_analyzer/logic_analyzer.hw/
+logic_analyzer/logic_analyzer.ip_user_files/
+logic_analyzer/logic_analyzer.runs/
+logic_analyzer/logic_analyzer.sim/
+logic_analyzer/logic_analyzer.srcs/
+
+# Vivado logs and temp files
+logic_analyzer/*.jou
+logic_analyzer/*.log
+logic_analyzer/vivado_pid*.str
+logic_analyzer/min_area_pfile.tmp
+
+############################
+# Quartus generated files  #
+############################
+
+db/
+incremental_db/
+output_files/
+simulation/
+
+############################
+# Generic tool noise       #
+############################
+
+*.rpt
+*.tmp
+*.bak
+*.log
+
